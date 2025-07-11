@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Hub AI - Financial, Health & Math Calculators</title>
+    <meta name="description" content="Over 100+ AI-enhanced calculators for finance, health, math, and more. Your all-in-one suite for every calculation need.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <style>
+        /* Calculator Hub AI - Modern Calculator UI Styles */
+
+        /* CSS Custom Properties */
+        :root {
+          /* Colors - Light Mode */
+          --bg-primary: #FFFFFF;
+          --bg-secondary: #F8FAFC;
+          --bg-tertiary: #F1F5F9;
+          --text-primary: #1A1F3A;
+          --text-secondary: #64748B;
+          --text-muted: #94A3B8;
+          
+          /* Accent Colors */
+          --accent-blue: #00D4FF;
+          --accent-purple: #8B5CF6;
+          --accent-green: #00FF88;
+          --accent-pink: #FF006E;
+          --accent-cyan: #22D3EE;
+          
+          /* Gradients */
+          --gradient-ai: linear-gradient(135deg, #00D4FF 0%, #8B5CF6 100%);
+          --gradient-neon: linear-gradient(135deg, #00FF88 0%, #22D3EE 100%);
+          --gradient-dark: linear-gradient(135deg, #0A0E27 0%, #1A1F3A 100%);
+          
+          /* Shadows */
+          --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+          --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+          --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+          
+          /* Glassmorphism */
+          --glass-bg: rgba(255, 255, 255, 0.1);
+          --glass-border: rgba(255, 255, 255, 0.2);
+          --glass-blur: blur(20px);
+          
+          /* Spacing */
+          --space-xs: 4px;
+          --space-sm: 8px;
+          --space-md: 16px;
+          --space-lg: 24px;
+          --space-xl: 32px;
+          --space-2xl: 48px;
+          --space-3xl: 64px;
+          
+          /* Typography */
+          --font-primary: 'Poppins', sans-serif;
+          --font-secondary: 'Inter', sans-serif;
+          --font-accent: 'Manrope', sans-serif;
+          
+          /* Transitions */
+          --transition-fast: 200ms ease-in-out;
+          --transition-normal: 300ms ease-in-out;
+          --transition-slow: 500ms ease-in-out;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+          --bg-primary: #0A0E27;
+          --bg-secondary: #1A1F3A;
+          --bg-tertiary: #252B4A;
+          --text-primary: #FFFFFF;
+          --text-secondary: #94A3B8;
+          --text-muted: #64748B;
+          
+          --glass-bg: rgba(0, 0, 0, 0.2);
+          --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Reset and Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+          font-family: var(--font-primary);
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          line-height: 1.6;
+          transition: background-color var(--transition-normal), color var(--transition-normal);
+          overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .gradient-text { background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glass-effect { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); }
+
+        /* Navigation */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: var(--space-md) 0; background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--glass-border); transition: all var(--transition-normal); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-text { font-family: var(--font-accent); font-size: 2rem; font-weight: 800; background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+        .logo-tagline { font-family: var(--font-secondary); font-size: 0.75rem; color: var(--text-secondary); margin-top: -4px; }
+        .nav-menu { display: flex; gap: var(--space-xl); }
+        .nav-link { font-family: var(--font-secondary); font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: var(--space-sm) var(--space-md); border-radius: 8px; transition: all var(--transition-fast); position: relative; }
+        .nav-link:hover, .nav-link.active { color: var(--accent-blue); background: var(--glass-bg); }
+        .nav-controls { display: flex; align-items: center; gap: var(--space-md); }
+        .theme-toggle { width: 44px; height: 44px; border: none; border-radius: 12px; background: var(--glass-bg); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); }
+        .theme-toggle:hover { color: var(--accent-blue); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .mobile-menu-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: var(--space-sm); }
+        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text-primary); transition: all var(--transition-fast); }
+
+        /* --- NEW: Side-Mounted Search Panel Styles --- */
+        .side-search-toggle {
+          position: fixed;
+          top: 150px;
+          right: 0;
+          z-index: 998;
+          background: var(--gradient-ai);
+          color: white;
+          border: none;
+          width: 50px;
+          height: 50px;
+          border-radius: 12px 0 0 12px;
+          cursor: pointer;
+          box-shadow: var(--shadow-lg);
+          transition: all var(--transition-normal);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+        }
+
+        .side-search-toggle:hover {
+          transform: translateX(-5px);
+          box-shadow: var(--shadow-xl);
+        }
+
+        .side-search-panel {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 380px;
+          height: 100vh;
+          z-index: 1001; /* Higher than navbar */
+          background: var(--bg-secondary);
+          box-shadow: var(--shadow-xl);
+          padding: var(--space-xl);
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-lg);
+          transform: translateX(100%);
+          transition: transform var(--transition-normal);
+          border-left: 1px solid var(--bg-tertiary);
+        }
+
+        .side-search-panel.active {
+          transform: translateX(0);
+        }
+        
+        .search-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--bg-tertiary);
+            padding-bottom: var(--space-md);
+        }
+
+        .search-panel-title {
+            font-family: var(--font-accent);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .search-panel-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .search-panel-close:hover {
+            color: var(--accent-pink);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* Adjustments for search elements inside the panel */
+        .side-search-panel .search-container {
+          position: relative;
+          background: var(--bg-primary); /* Solid background inside panel */
+          border: 1px solid var(--bg-tertiary);
+          border-radius: 12px;
+          padding: var(--space-sm) var(--space-md);
+          display: flex;
+          align-items: center;
+          box-shadow: var(--shadow-sm);
+        }
+        
+        .side-search-panel .search-input { flex: 1; border: none; background: none; font-family: var(--font-secondary); font-size: 1rem; color: var(--text-primary); outline: none; }
+        .side-search-panel .search-input::placeholder { color: var(--text-muted); }
+        .side-search-panel .search-icon { color: var(--text-secondary); font-size: 1.25rem; margin-right: var(--space-sm); }
+        .side-search-panel .search-clear { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: var(--space-sm); border-radius: 8px; transition: all var(--transition-fast); opacity: 0; visibility: hidden; }
+        .side-search-panel .search-clear.visible { opacity: 1; visibility: visible; }
+        
+        .side-search-panel .search-container:focus-within {
+            border-color: var(--accent-blue);
+        }
+
+        .side-search-panel .search-suggestions {
+          position: relative; /* No longer absolute */
+          top: auto; left: auto; right: auto;
+          background: transparent; /* Inherit panel background */
+          border: none;
+          margin-top: 0;
+          max-height: none; /* Let the panel scroll */
+          overflow-y: auto;
+          box-shadow: none;
+          flex-grow: 1; /* Take remaining space */
+        }
+        /* Make suggestions always visible when panel is active */
+        .side-search-panel.active .search-suggestions.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Main Content & Sections */
+        .main-content { margin-top: 100px; }
+        .hero { padding: var(--space-3xl) 0; background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:im/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(139,92,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>'); opacity: 0.5; }
+        .hero-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: center; position: relative; z-index: 1; }
+        .hero-content { display: flex; flex-direction: column; gap: var(--space-xl); }
+        .hero-title { font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin: 0; }
+        .hero-description { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+        .hero-cta-button { background: var(--gradient-ai); color: white; border: none; padding: var(--space-md) var(--space-xl); border-radius: 12px; font-family: var(--font-secondary); font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: var(--space-sm); transition: all var(--transition-fast); margin-top: var(--space-md); text-decoration: none; align-self: flex-start; }
+        .hero-cta-button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .hero-visual { position: relative; height: 400px; display: flex; align-items: center; justify-content: center; }
+        .floating-cards { position: relative; width: 100%; height: 100%; }
+        .feature-card { position: absolute; background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 16px; padding: var(--space-lg); display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); box-shadow: var(--shadow-lg); transition: all var(--transition-normal); animation: float 6s ease-in-out infinite; }
+        .feature-card i { font-size: 2rem; background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .feature-card span { font-family: var(--font-secondary); font-weight: 600; color: var(--text-primary); }
+        .card-1 { top: 20%; left: 10%; animation-delay: 0s; }
+        .card-2 { top: 50%; right: 20%; animation-delay: 2s; }
+        .card-3 { bottom: 20%; left: 30%; animation-delay: 4s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 33% { transform: translateY(-20px) rotate(1deg); } 66% { transform: translateY(10px) rotate(-1deg); } }
+        .tools-section { padding: var(--space-3xl) 0; background: var(--bg-secondary); }
+        .tools-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); }
+        .section-header { text-align: center; margin-bottom: var(--space-3xl); }
+        .section-title { font-size: 3rem; font-weight: 700; margin: 0 0 var(--space-md) 0; }
+        .section-description { font-size: 1.25rem; color: var(--text-secondary); margin: 0; }
+
+        /* Category Tabs */
+        .category-tabs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-2xl); justify-content: center; }
+        .tab-button { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 12px; padding: var(--space-md) var(--space-lg); font-family: var(--font-secondary); font-weight: 500; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: var(--space-sm); transition: all var(--transition-fast); white-space: nowrap; }
+        .tab-button:hover { color: var(--accent-blue); border-color: var(--accent-blue); transform: translateY(-2px); }
+        .tab-button.active { background: var(--gradient-ai); color: white; border-color: transparent; box-shadow: var(--shadow-md); }
+        .tab-button i { font-size: 1rem; }
+
+        /* Tools Grid & Cards */
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); }
+        .tool-card { background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 16px; padding: var(--space-lg); transition: all var(--transition-normal); cursor: pointer; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-ai); transform: scaleX(0); transition: transform var(--transition-fast); }
+        .tool-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: var(--accent-blue); }
+        .tool-card:hover::before { transform: scaleX(1); }
+        .tool-header { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md); }
+        .tool-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--gradient-ai); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; flex-shrink: 0; }
+        .tool-content { flex-grow: 1; }
+        .tool-title { font-size: 1.25rem; font-weight: 600; margin: 0 0 var(--space-sm) 0; color: var(--text-primary); }
+        .tool-description { color: var(--text-secondary); line-height: 1.5; margin: 0 0 var(--space-lg) 0; }
+        .tool-action { background: var(--gradient-ai); color: white; border: none; padding: var(--space-sm) var(--space-lg); border-radius: 8px; font-family: var(--font-secondary); font-weight: 600; cursor: pointer; transition: all var(--transition-fast); width: 100%; margin-top: auto; }
+        .tool-action:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+        /* Footer */
+        .footer { background: var(--bg-tertiary); padding: var(--space-2xl) 0 var(--space-lg) 0; border-top: 1px solid var(--glass-border); }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg); }
+        .footer-brand { display: flex; flex-direction: column; gap: var(--space-sm); }
+        .footer-logo { font-family: var(--font-accent); font-size: 1.5rem; font-weight: 800; background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+        .footer-tagline { color: var(--text-secondary); margin: 0; }
+        .footer-links { display: flex; align-items: center; gap: var(--space-md); }
+        .footer-link { color: var(--text-secondary); text-decoration: none; font-family: var(--font-secondary); transition: color var(--transition-fast); }
+        .footer-link:hover { color: var(--accent-blue); }
+        .footer-separator { color: var(--text-muted); }
+        .footer-bottom { text-align: center; padding-top: var(--space-lg); border-top: 1px solid var(--glass-border); }
+        .footer-copyright { color: var(--text-muted); font-size: 0.875rem; margin: 0; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+          .hero-container { grid-template-columns: 1fr; gap: var(--space-2xl); text-align: center; }
+          .hero-cta-button { align-self: center; }
+          .hero-title { font-size: 3rem; }
+          .tools-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+        }
+        @media (max-width: 768px) {
+          .nav-menu { display: none; position: fixed; top: 75px; left: 0; right: 0; background: var(--bg-primary); border-top: 1px solid var(--glass-border); flex-direction: column; padding: var(--space-lg); gap: var(--space-lg); opacity: 0; visibility: hidden; transition: all var(--transition-normal); box-shadow: var(--shadow-lg); }
+          .nav-menu.active { opacity: 1; visibility: visible; }
+          .mobile-menu-toggle { display: flex; }
+          .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+          .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+          .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+          .side-search-toggle { top: 90px; }
+          .hero { padding: var(--space-2xl) 0; }
+          .hero-title { font-size: 2.5rem; }
+          .section-title { font-size: 2.5rem; }
+          .category-tabs { overflow-x: auto; justify-content: flex-start; padding-bottom: var(--space-sm); -ms-overflow-style: none; scrollbar-width: none; }
+          .category-tabs::-webkit-scrollbar { display: none; }
+          .tools-grid { grid-template-columns: 1fr; }
+          .footer-content { flex-direction: column; gap: var(--space-lg); text-align: center; }
+          .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+        @media (max-width: 480px) {
+          .side-search-panel { width: 90%; }
+          .nav-container { padding: 0 var(--space-md); }
+          .hero-container { padding: 0 var(--space-md); }
+          .tools-container { padding: 0 var(--space-md); }
+          .footer-container { padding: 0 var(--space-md); }
+          .hero-title { font-size: 2rem; }
+          .section-title { font-size: 2rem; }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top { position: fixed; bottom: 30px; right: 30px; z-index: 1000; width: 50px; height: 50px; border: none; border-radius: 50%; background: var(--gradient-ai); color: white; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); transition: all var(--transition-fast); font-size: 1.25rem; }
+        .scroll-to-top:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+        /* Search Suggestions Styling */
+        .suggestion-item { padding: var(--space-md); display: flex; align-items: center; gap: var(--space-md); cursor: pointer; transition: all var(--transition-fast); border-bottom: 1px solid var(--bg-tertiary); border-radius: 8px; }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background: var(--bg-primary); }
+        .suggestion-item i { color: var(--accent-blue); width: 20px; text-align: center; }
+        .suggestion-item span { color: var(--text-primary); font-family: var(--font-secondary); font-weight: 500; }
+
+        /* No Results State */
+        .no-results { grid-column: 1 / -1; text-align: center; padding: var(--space-3xl); color: var(--text-secondary); }
+        .no-results i { font-size: 4rem; color: var(--text-muted); margin-bottom: var(--space-lg); }
+        .no-results h3 { font-size: 1.5rem; margin: 0 0 var(--space-md) 0; color: var(--text-primary); }
+        .no-results p { margin: 0; font-size: 1rem; }
+        
+        /* Tool Card Animation States */
+        .tool-card { opacity: 0; transform: translateY(20px); transition: all var(--transition-normal); }
+        .tool-card.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Category-specific Tool Card Accents */
+        .tool-card[data-category="financial"] .tool-icon { background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-cyan) 100%); }
+        .tool-card[data-category="health"] .tool-icon { background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 100%); }
+        .tool-card[data-category="math"] .tool-icon { background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%); }
+        .tool-card[data-category="other"] .tool-icon { background: linear-gradient(135deg, #FFC107 0%, #FF8F00 100%); }
+        
+        /* --- Calculator Modal Styles --- */
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(10, 14, 39, 0.7);
+          backdrop-filter: blur(8px);
+          z-index: 2000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity var(--transition-normal), visibility var(--transition-normal);
+        }
+        .modal-overlay.visible {
+          opacity: 1;
+          visibility: visible;
+        }
+        .modal-content {
+          background: var(--bg-secondary);
+          padding: var(--space-xl);
+          border-radius: 16px;
+          width: 90%;
+          max-width: 500px;
+          max-height: 90vh;
+          overflow-y: auto;
+          box-shadow: var(--shadow-xl);
+          transform: scale(0.95);
+          transition: transform var(--transition-normal);
+        }
+        .modal-overlay.visible .modal-content {
+          transform: scale(1);
+        }
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: var(--space-lg);
+          padding-bottom: var(--space-md);
+          border-bottom: 1px solid var(--bg-tertiary);
+        }
+        .modal-title {
+          font-family: var(--font-accent);
+          font-size: 1.75rem;
+          font-weight: 700;
+          background: var(--gradient-ai);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .modal-close-btn {
+          background: var(--bg-tertiary);
+          border: none;
+          color: var(--text-secondary);
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          font-size: 1.25rem;
+          cursor: pointer;
+          transition: all var(--transition-fast);
+        }
+        .modal-close-btn:hover {
+          background: var(--accent-pink);
+          color: white;
+          transform: rotate(90deg);
+        }
+        .calculator-form .form-group {
+          margin-bottom: var(--space-lg);
+        }
+        .calculator-form label {
+          display: block;
+          font-family: var(--font-secondary);
+          font-weight: 600;
+          color: var(--text-secondary);
+          margin-bottom: var(--space-sm);
+        }
+        .calculator-form input, .calculator-form select {
+          width: 100%;
+          padding: var(--space-md);
+          border: 1px solid var(--bg-tertiary);
+          background: var(--bg-primary);
+          border-radius: 8px;
+          color: var(--text-primary);
+          font-size: 1rem;
+          transition: border-color var(--transition-fast);
+        }
+        .calculator-form input:focus, .calculator-form select:focus {
+          outline: none;
+          border-color: var(--accent-blue);
+        }
+        .calculator-result-area {
+          margin-top: var(--space-xl);
+          padding: var(--space-lg);
+          background: var(--bg-tertiary);
+          border-radius: 12px;
+          text-align: center;
+        }
+        .result-title {
+          font-family: var(--font-secondary);
+          color: var(--text-muted);
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .result-value {
+          font-family: var(--font-accent);
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin: var(--space-sm) 0;
+          color: var(--text-primary);
+          word-wrap: break-word;
+        }
+        .result-interpretation {
+          color: var(--text-secondary);
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1 class="logo-text">Calculator Hub AI</h1>
+                <span class="logo-tagline">Your All-in-One Calculator Suite</span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#calculators" class="nav-link">Calculators</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side-Mounted Search Panel -->
+    <button class="side-search-toggle" id="sideSearchToggle" aria-label="Open search panel">
+        <i class="fas fa-search"></i>
+    </button>
+    <div class="side-search-panel" id="sideSearchPanel">
+        <div class="search-panel-header">
+            <h3 class="search-panel-title">Search Calculators</h3>
+            <button class="search-panel-close" id="searchPanelClose" aria-label="Close search panel">×</button>
+        </div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="e.g., BMI, Mortgage, Age..." class="search-input" id="searchInput">
+            <button class="search-clear" id="searchClear">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Intelligent Calculators</span>
+                        for Every Need
+                    </h1>
+                    <p class="hero-description">
+                        From complex financial planning to daily health metrics and advanced math problems,
+                        find the perfect tool in our comprehensive, AI-enhanced suite.
+                    </p>
+                    <a href="#calculators" class="hero-cta-button">
+                        <i class="fas fa-rocket"></i>
+                        Explore Calculators
+                    </a>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="floating-cards">
+                        <div class="feature-card card-1">
+                            <i class="fas fa-home"></i>
+                            <span>Mortgage Calculator</span>
+                        </div>
+                        <div class="feature-card card-2">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>BMI Calculator</span>
+                        </div>
+                        <div class="feature-card card-3">
+                            <i class="fas fa-calculator"></i>
+                            <span>Scientific Calculator</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators Section -->
+        <section class="tools-section" id="calculators">
+            <div class="tools-container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="gradient-text">100+</span> Smart Calculators
+                    </h2>
+                    <p class="section-description">
+                        Find the right tool for the job, organized by category.
+                    </p>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="category-tabs" id="categoryTabs">
+                    <button class="tab-button active" data-category="all">
+                        <i class="fas fa-th-large"></i>
+                        All Calculators
+                    </button>
+                    <button class="tab-button" data-category="financial">
+                        <i class="fas fa-chart-line"></i>
+                        Financial
+                    </button>
+                    <button class="tab-button" data-category="health">
+                        <i class="fas fa-heartbeat"></i>
+                        Fitness & Health
+                    </button>
+                    <button class="tab-button" data-category="math">
+                        <i class="fas fa-calculator"></i>
+                        Math
+                    </button>
+                    <button class="tab-button" data-category="other">
+                        <i class="fas fa-cogs"></i>
+                        Other
+                    </button>
+                </div>
+
+                <!-- Tools Grid -->
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- Calculators will be dynamically populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">Calculator Hub AI</h3>
+                    <p class="footer-tagline">AI-Enhanced Calculators for Everyone</p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#privacy" class="footer-link">Privacy Policy</a>
+                    <span class="footer-separator">|</span>
+                    <a href="#terms" class="footer-link">Terms of Service</a>
+                    <span class="footer-separator">|</span>
+                    <a href="#report" class="footer-link">Report Issue</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Calculator Hub AI. Your trusted source for smart calculations.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Calculator Modal -->
+    <div class="modal-overlay" id="calculatorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Calculator</h2>
+                <button class="modal-close-btn" id="modalCloseBtn">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Calculator form will be injected here -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script>
+        // Calculator Hub AI - Interactive JavaScript Functionality
+
+        const toolsData = {
+          financial: [
+            { id: 'mortgage-calculator', title: 'Mortgage Calculator', description: 'Estimate your monthly mortgage payments.', icon: 'fas fa-home', action: 'Calculate Now' },
+            { id: 'amortization-calculator', title: 'Amortization Calculator', description: 'See how your loan payment is split between principal and interest.', icon: 'fas fa-chart-pie', action: 'Calculate Now' },
+            { id: 'mortgage-payoff-calculator', title: 'Mortgage Payoff Calculator', description: 'Find out how soon you can pay off your mortgage.', icon: 'fas fa-calendar-check', action: 'Calculate Now' },
+            { id: 'house-affordability-calculator', title: 'House Affordability Calculator', description: 'Determine how much house you can afford.', icon: 'fas fa-house-user', action: 'Calculate Now' },
+            { id: 'rent-calculator', title: 'Rent Calculator', description: 'Calculate rental costs and affordability.', icon: 'fas fa-key', action: 'Calculate Now' },
+            { id: 'dti-ratio-calculator', title: 'Debt-to-Income Ratio Calculator', description: 'Calculate your debt-to-income (DTI) ratio.', icon: 'fas fa-percentage', action: 'Calculate Now' },
+            { id: 'real-estate-calculator', title: 'Real Estate Calculator', description: 'Analyze potential real estate investments.', icon: 'fas fa-city', action: 'Calculate Now' },
+            { id: 'refinance-calculator', title: 'Refinance Calculator', description: 'See if refinancing your mortgage is a good idea.', icon: 'fas fa-retweet', action: 'Calculate Now' },
+            { id: 'rental-property-calculator', title: 'Rental Property Calculator', description: 'Evaluate the profitability of a rental property.', icon: 'fas fa-building', action: 'Calculate Now' },
+            { id: 'apr-calculator', title: 'APR Calculator', description: 'Calculate the Annual Percentage Rate for a loan.', icon: 'fas fa-percent', action: 'Calculate Now' },
+            { id: 'fha-loan-calculator', title: 'FHA Loan Calculator', description: 'Estimate payments for an FHA-insured mortgage.', icon: 'fas fa-landmark', action: 'Calculate Now' },
+            { id: 'va-mortgage-calculator', title: 'VA Mortgage Calculator', description: 'Calculate payments for a VA home loan.', icon: 'fas fa-shield-halved', action: 'Calculate Now' },
+            { id: 'down-payment-calculator', title: 'Down Payment Calculator', description: 'Calculate the required down payment for a home.', icon: 'fas fa-money-bill-wave', action: 'Calculate Now' },
+            { id: 'rent-vs-buy-calculator', title: 'Rent vs. Buy Calculator', description: 'Compare the financial outcomes of renting versus buying.', icon: 'fas fa-balance-scale', action: 'Calculate Now' },
+            { id: 'auto-loan-calculator', title: 'Auto Loan Calculator', description: 'Estimate your monthly car loan payments.', icon: 'fas fa-car', action: 'Calculate Now' },
+            { id: 'cash-back-low-interest-calculator', title: 'Cash Back or Low Interest Calculator', description: 'Decide between a cash back offer or a low interest rate.', icon: 'fas fa-hand-holding-usd', action: 'Calculate Now' },
+            { id: 'auto-lease-calculator', title: 'Auto Lease Calculator', description: 'Calculate the cost of leasing a car.', icon: 'fas fa-file-contract', action: 'Calculate Now' },
+            { id: 'interest-calculator', title: 'Interest Calculator', description: 'Calculate simple or compound interest on a principal amount.', icon: 'fas fa-piggy-bank', action: 'Calculate Now' },
+            { id: 'investment-calculator', title: 'Investment Calculator', description: 'Project the future value of your investments.', icon: 'fas fa-seedling', action: 'Calculate Now' },
+            { id: 'compound-interest-calculator', title: 'Compound Interest Calculator', description: 'See how compound interest can grow your money.', icon: 'fas fa-chart-line', action: 'Calculate Now' },
+            { id: 'savings-calculator', title: 'Savings Calculator', description: 'Plan and track your savings goals.', icon: 'fas fa-coins', action: 'Calculate Now' },
+            { id: 'cd-calculator', title: 'CD Calculator', description: 'Calculate the potential earnings on a Certificate of Deposit.', icon: 'fas fa-lock', action: 'Calculate Now' },
+            { id: 'retirement-calculator', title: 'Retirement Calculator', description: 'Plan for your financial future and retirement.', icon: 'fas fa-umbrella-beach', action: 'Calculate Now' },
+            { id: '401k-calculator', title: '401K Calculator', description: 'Estimate the growth of your 401(k) savings.', icon: 'fas fa-user-tie', action: 'Calculate Now' },
+            { id: 'income-tax-calculator', title: 'Income Tax Calculator', description: 'Estimate your federal income tax liability.', icon: 'fas fa-file-invoice-dollar', action: 'Calculate Now' },
+            { id: 'salary-calculator', title: 'Salary Calculator', description: 'Convert your salary between hourly, weekly, and annual rates.', icon: 'fas fa-wallet', action: 'Calculate Now' },
+            { id: 'loan-calculator', title: 'Loan Calculator', description: 'Calculate payments for any type of loan.', icon: 'fas fa-handshake', action: 'Calculate Now' },
+            { id: 'currency-calculator', title: 'Currency Calculator', description: 'Convert between different world currencies.', icon: 'fas fa-globe', action: 'Calculate Now' },
+            { id: 'inflation-calculator', title: 'Inflation Calculator', description: 'See how inflation affects the value of money over time.', icon: 'fas fa-arrow-trend-up', action: 'Calculate Now' },
+            { id: 'sales-tax-calculator', title: 'Sales Tax Calculator', description: 'Quickly calculate sales tax on a purchase.', icon: 'fas fa-shopping-cart', action: 'Calculate Now' },
+            { id: 'credit-card-payoff-calculator', title: 'Credit Card Payoff Calculator', description: 'Plan the best way to pay off your credit card debt.', icon: 'fab fa-cc-visa', action: 'Calculate Now' },
+            { id: 'student-loan-calculator', title: 'Student Loan Calculator', description: 'Estimate your monthly student loan payments.', icon: 'fas fa-user-graduate', action: 'Calculate Now' },
+            { id: 'business-loan-calculator', title: 'Business Loan Calculator', description: 'Calculate payments for a business loan.', icon: 'fas fa-briefcase', action: 'Calculate Now' },
+            { id: 'budget-calculator', title: 'Budget Calculator', description: 'Create and manage your personal or household budget.', icon: 'fas fa-clipboard-list', action: 'Calculate Now' },
+          ],
+          health: [
+            { id: 'bmi-calculator', title: 'BMI Calculator', description: 'Calculate your Body Mass Index.', icon: 'fas fa-weight-scale', action: 'Calculate Now' },
+            { id: 'calorie-calculator', title: 'Calorie Calculator', description: 'Estimate your daily calorie needs.', icon: 'fas fa-apple-alt', action: 'Calculate Now' },
+            { id: 'body-fat-calculator', title: 'Body Fat Calculator', description: 'Estimate your body fat percentage.', icon: 'fas fa-percentage', action: 'Calculate Now' },
+            { id: 'bmr-calculator', title: 'BMR Calculator', description: 'Calculate your Basal Metabolic Rate.', icon: 'fas fa-fire', action: 'Calculate Now' },
+            { id: 'ideal-weight-calculator', title: 'Ideal Weight Calculator', description: 'Find your ideal healthy weight range.', icon: 'fas fa-balance-scale-right', action: 'Calculate Now' },
+            { id: 'pace-calculator', title: 'Pace Calculator', description: 'Calculate running pace, time, and distance.', icon: 'fas fa-running', action: 'Calculate Now' },
+            { id: 'lean-body-mass-calculator', title: 'Lean Body Mass Calculator', description: 'Estimate your lean body mass.', icon: 'fas fa-dumbbell', action: 'Calculate Now' },
+            { id: 'calories-burned-calculator', title: 'Calories Burned Calculator', description: 'Estimate calories burned during activities.', icon: 'fas fa-fire-alt', action: 'Calculate Now' },
+            { id: 'one-rep-max-calculator', title: 'One Rep Max Calculator', description: 'Estimate your one-repetition maximum for lifts.', icon: 'fas fa-trophy', action: 'Calculate Now' },
+            { id: 'target-heart-rate-calculator', title: 'Target Heart Rate Calculator', description: 'Find your target heart rate zones for exercise.', icon: 'fas fa-heart-pulse', action: 'Calculate Now' },
+            { id: 'pregnancy-calculator', title: 'Pregnancy Calculator', description: 'Track your pregnancy and due date.', icon: 'fas fa-baby', action: 'Calculate Now' },
+            { id: 'due-date-calculator', title: 'Due Date Calculator', description: 'Estimate your baby\'s due date.', icon: 'fas fa-calendar-alt', action: 'Calculate Now' },
+            { id: 'ovulation-calculator', title: 'Ovulation Calculator', description: 'Predict your most fertile days.', icon: 'fas fa-leaf', action: 'Calculate Now' },
+            { id: 'macro-calculator', title: 'Macro Calculator', description: 'Calculate your optimal macronutrient intake.', icon: 'fas fa-utensils', action: 'Calculate Now' },
+            { id: 'tdee-calculator', title: 'TDEE Calculator', description: 'Calculate your Total Daily Energy Expenditure.', icon: 'fas fa-battery-full', action: 'Calculate Now' },
+          ],
+          math: [
+            { id: 'scientific-calculator', title: 'Scientific Calculator', description: 'Perform advanced mathematical calculations.', icon: 'fas fa-flask', action: 'Calculate Now' },
+            { id: 'fraction-calculator', title: 'Fraction Calculator', description: 'Add, subtract, multiply, and divide fractions.', icon: 'fas fa-divide', action: 'Calculate Now' },
+            { id: 'percentage-calculator', title: 'Percentage Calculator', description: 'Solve various percentage problems.', icon: 'fas fa-percent', action: 'Calculate Now' },
+            { id: 'random-number-generator', title: 'Random Number Generator', description: 'Generate random numbers within a range.', icon: 'fas fa-random', action: 'Calculate Now' },
+            { id: 'exponent-calculator', title: 'Exponent Calculator', description: 'Solve expressions with exponents.', icon: 'fas fa-superscript', action: 'Calculate Now' },
+            { id: 'binary-calculator', title: 'Binary Calculator', description: 'Perform calculations in binary.', icon: 'fas fa-microchip', action: 'Calculate Now' },
+            { id: 'quadratic-formula-calculator', title: 'Quadratic Formula Calculator', description: 'Solve quadratic equations.', icon: 'fas fa-square-root-alt', action: 'Calculate Now' },
+            { id: 'log-calculator', title: 'Log Calculator', description: 'Calculate logarithms with any base.', icon: 'fas fa-wave-square', action: 'Calculate Now' },
+            { id: 'ratio-calculator', title: 'Ratio Calculator', description: 'Simplify and solve ratios.', icon: 'fas fa-equals', action: 'Calculate Now' },
+            { id: 'standard-deviation-calculator', title: 'Standard Deviation Calculator', description: 'Calculate the standard deviation of a data set.', icon: 'fas fa-chart-bar', action: 'Calculate Now' },
+            { id: 'probability-calculator', title: 'Probability Calculator', description: 'Calculate the probability of events.', icon: 'fas fa-dice', action: 'Calculate Now' },
+            { id: 'mean-median-mode-range-calculator', title: 'Mean, Median, Mode, Range Calculator', description: 'Find central tendency of a data set.', icon: 'fas fa-sort-numeric-down', action: 'Calculate Now' },
+            { id: 'triangle-calculator', title: 'Triangle Calculator', description: 'Solve for the sides and angles of a triangle.', icon: 'fas fa-drafting-compass', action: 'Calculate Now' },
+            { id: 'volume-calculator', title: 'Volume Calculator', description: 'Calculate the volume of various 3D shapes.', icon: 'fas fa-cube', action: 'Calculate Now' },
+            { id: 'area-calculator', title: 'Area Calculator', description: 'Calculate the area of 2D shapes.', icon: 'fas fa-square', action: 'Calculate Now' },
+            { id: 'distance-calculator', title: 'Distance Calculator', description: 'Find the distance between two points.', icon: 'fas fa-ruler-horizontal', action: 'Calculate Now' },
+          ],
+          other: [
+            { id: 'age-calculator', title: 'Age Calculator', description: 'Calculate age in years, months, and days.', icon: 'fas fa-birthday-cake', action: 'Calculate Now' },
+            { id: 'date-calculator', title: 'Date Calculator', description: 'Add or subtract days from a date.', icon: 'fas fa-calendar-plus', action: 'Calculate Now' },
+            { id: 'time-calculator', title: 'Time Calculator', description: 'Add, subtract, and calculate time durations.', icon: 'fas fa-clock', action: 'Calculate Now' },
+            { id: 'concrete-calculator', title: 'Concrete Calculator', description: 'Estimate the amount of concrete needed for a project.', icon: 'fas fa-trowel-bricks', action: 'Calculate Now' },
+            { id: 'btu-calculator', title: 'BTU Calculator', description: 'Determine heating or cooling needs for a room.', icon: 'fas fa-thermometer-half', action: 'Calculate Now' },
+            { id: 'square-footage-calculator', title: 'Square Footage Calculator', description: 'Calculate the area of a space in square feet.', icon: 'fas fa-ruler-combined', action: 'Calculate Now' },
+            { id: 'conversion-calculator', title: 'Conversion Calculator', description: 'Convert between various units of measurement.', icon: 'fas fa-exchange-alt', action: 'Calculate Now' },
+            { id: 'roman-numeral-converter', title: 'Roman Numeral Converter', description: 'Convert numbers to and from Roman numerals.', icon: 'fas fa-monument', action: 'Calculate Now' },
+            { id: 'ip-subnet-calculator', title: 'IP Subnet Calculator', description: 'Calculate subnets for an IP address range.', icon: 'fas fa-network-wired', action: 'Calculate Now' },
+            { id: 'password-generator', title: 'Password Generator', description: 'Create strong, secure, random passwords.', icon: 'fas fa-key', action: 'Calculate Now' },
+            { id: 'gpa-calculator', title: 'GPA Calculator', description: 'Calculate your Grade Point Average.', icon: 'fas fa-graduation-cap', action: 'Calculate Now' },
+            { id: 'grade-calculator', title: 'Grade Calculator', description: 'Determine your course grade based on assignments.', icon: 'fas fa-percentage', action: 'Calculate Now' },
+            { id: 'tip-calculator', title: 'Tip Calculator', description: 'Quickly calculate the tip for a bill.', icon: 'fas fa-concierge-bell', action: 'Calculate Now' },
+            { id: 'sleep-calculator', title: 'Sleep Calculator', description: 'Find the best time to wake up or go to bed.', icon: 'fas fa-bed', action: 'Calculate Now' },
+            { id: 'fuel-cost-calculator', title: 'Fuel Cost Calculator', description: 'Estimate the fuel cost for a trip.', icon: 'fas fa-gas-pump', action: 'Calculate Now' },
+            { id: 'tire-size-calculator', title: 'Tire Size Calculator', description: 'Compare tire sizes and their effects on your vehicle.', icon: 'fas fa-dot-circle', action: 'Calculate Now' },
+            { id: 'dice-roller', title: 'Dice Roller', description: 'Roll virtual dice for games and probability.', icon: 'fas fa-dice-d20', action: 'Calculate Now' },
+          ]
+        };
+        
+        // --- Calculator Implementation Hub ---
+        const calculatorImplementations = {
+            'mortgage-calculator': {
+                getHTML: () => `
+                    <form class="calculator-form">
+                        <div class="form-group">
+                            <label for="loanAmount">Loan Amount ($)</label>
+                            <input type="number" id="loanAmount" value="300000" placeholder="e.g., 300000">
+                        </div>
+                        <div class="form-group">
+                            <label for="interestRate">Interest Rate (%)</label>
+                            <input type="number" id="interestRate" value="6.5" step="0.01" placeholder="e.g., 6.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="loanTerm">Loan Term (years)</label>
+                            <input type="number" id="loanTerm" value="30" placeholder="e.g., 30">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Monthly Payment</p>
+                            <p class="result-value" id="resultValue">$0.00</p>
+                            <p class="result-interpretation" id="resultInterpretation"></p>
+                        </div>
+                    </form>
+                `,
+                attachEventListeners: (modal) => {
+                    const form = modal.querySelector('form');
+                    const calculate = () => {
+                        const P = parseFloat(modal.querySelector('#loanAmount').value);
+                        const annualRate = parseFloat(modal.querySelector('#interestRate').value);
+                        const termYears = parseFloat(modal.querySelector('#loanTerm').value);
+                        
+                        if (P > 0 && annualRate > 0 && termYears > 0) {
+                            const i = annualRate / 100 / 12;
+                            const n = termYears * 12;
+                            const M = P * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+                            
+                            modal.querySelector('#resultValue').textContent = M.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                            modal.querySelector('#resultInterpretation').textContent = '';
+                        } else {
+                            modal.querySelector('#resultValue').textContent = '$0.00';
+                            modal.querySelector('#resultInterpretation').textContent = 'Please enter valid loan details.';
+                        }
+                    };
+                    form.addEventListener('input', calculate);
+                    calculate(); // Initial calculation
+                }
+            },
+            'bmi-calculator': {
+                getHTML: () => `
+                    <form class="calculator-form">
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" value="175" placeholder="e.g., 175">
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" value="70" placeholder="e.g., 70">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Your BMI</p>
+                            <p class="result-value" id="resultValue">--</p>
+                            <p class="result-interpretation" id="resultInterpretation"></p>
+                        </div>
+                    </form>
+                `,
+                attachEventListeners: (modal) => {
+                    const form = modal.querySelector('form');
+                    const calculate = () => {
+                        const heightCm = parseFloat(modal.querySelector('#height').value);
+                        const weightKg = parseFloat(modal.querySelector('#weight').value);
+
+                        if (heightCm > 0 && weightKg > 0) {
+                            const heightM = heightCm / 100;
+                            const bmi = weightKg / (heightM * heightM);
+                            
+                            let interpretation = 'Based on your BMI, you are in the ';
+                            if (bmi < 18.5) interpretation += 'Underweight range.';
+                            else if (bmi < 25) interpretation += 'Normal weight range.';
+                            else if (bmi < 30) interpretation += 'Overweight range.';
+                            else interpretation += 'Obesity range.';
+                            
+                            modal.querySelector('#resultValue').textContent = bmi.toFixed(1);
+                            modal.querySelector('#resultInterpretation').textContent = interpretation + ' This is an estimate, consult a healthcare professional for advice.';
+                        } else {
+                            modal.querySelector('#resultValue').textContent = '--';
+                            modal.querySelector('#resultInterpretation').textContent = 'Please enter a valid height and weight.';
+                        }
+                    };
+                    form.addEventListener('input', calculate);
+                    calculate();
+                }
+            },
+            'age-calculator': {
+                getHTML: () => `
+                    <form class="calculator-form">
+                        <div class="form-group">
+                            <label for="birthDate">Enter Your Date of Birth</label>
+                            <input type="date" id="birthDate">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Your Age Is</p>
+                            <p class="result-value" id="resultValue">--</p>
+                            <p class="result-interpretation" id="resultInterpretation">Enter a date to see your age.</p>
+                        </div>
+                    </form>
+                `,
+                attachEventListeners: (modal) => {
+                    const form = modal.querySelector('form');
+                    const birthDateInput = modal.querySelector('#birthDate');
+                    
+                    const today = new Date();
+                    const formattedToday = today.toISOString().split('T')[0];
+                    birthDateInput.max = formattedToday;
+                    birthDateInput.value = formattedToday;
+                    
+                    const calculate = () => {
+                        if (!birthDateInput.value) return;
+
+                        const birthDate = new Date(birthDateInput.value);
+                        let years = today.getFullYear() - birthDate.getFullYear();
+                        let months = today.getMonth() - birthDate.getMonth();
+                        let days = today.getDate() - birthDate.getDate();
+
+                        if (days < 0) {
+                            months--;
+                            days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                        }
+                        if (months < 0) {
+                            years--;
+                            months += 12;
+                        }
+
+                        if (years >= 0) {
+                            modal.querySelector('#resultValue').textContent = `${years}y ${months}m ${days}d`;
+                            modal.querySelector('#resultInterpretation').textContent = `Calculated as of ${today.toLocaleDateString()}`;
+                        } else {
+                            modal.querySelector('#resultValue').textContent = '--';
+                            modal.querySelector('#resultInterpretation').textContent = 'Birth date cannot be in the future.';
+                        }
+                    };
+                    form.addEventListener('input', calculate);
+                    calculate();
+                }
+            },
+            'percentage-calculator': {
+                 getHTML: () => `
+                    <form class="calculator-form">
+                        <div class="form-group">
+                             <select id="calcMode">
+                                <option value="p_of_n">What is X % of Y?</option>
+                                <option value="n_is_p_of">X is what % of Y?</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="val1" id="label1">Percentage (X)</label>
+                            <input type="number" id="val1" placeholder="e.g., 15">
+                        </div>
+                        <div class="form-group">
+                            <label for="val2" id="label2">Total Number (Y)</label>
+                            <input type="number" id="val2" placeholder="e.g., 200">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Result</p>
+                            <p class="result-value" id="resultValue">--</p>
+                        </div>
+                    </form>
+                `,
+                attachEventListeners: (modal) => {
+                    const form = modal.querySelector('form');
+                    const modeSelect = modal.querySelector('#calcMode');
+                    const label1 = modal.querySelector('#label1');
+                    const label2 = modal.querySelector('#label2');
+
+                    const updateLabels = () => {
+                        if (modeSelect.value === 'p_of_n') {
+                            label1.textContent = 'Percentage (X)';
+                            label2.textContent = 'Total Number (Y)';
+                        } else {
+                            label1.textContent = 'Part Number (X)';
+                            label2.textContent = 'Total Number (Y)';
+                        }
+                    };
+                    
+                    const calculate = () => {
+                        const val1 = parseFloat(modal.querySelector('#val1').value);
+                        const val2 = parseFloat(modal.querySelector('#val2').value);
+                        let result = '--';
+
+                        if (!isNaN(val1) && !isNaN(val2)) {
+                            if (modeSelect.value === 'p_of_n') {
+                                result = (val1 / 100) * val2;
+                            } else if (val2 !== 0) {
+                                result = `${((val1 / val2) * 100).toFixed(2)}%`;
+                            } else {
+                                result = 'Error';
+                            }
+                        }
+                        modal.querySelector('#resultValue').textContent = result;
+                    };
+                    
+                    modeSelect.addEventListener('change', () => {
+                        updateLabels();
+                        calculate();
+                    });
+                    form.addEventListener('input', calculate);
+                    updateLabels();
+                }
+            }
+        };
+
+
+        // --- Core Application Logic ---
+        let currentTheme = 'light';
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const sideSearchToggle = document.getElementById('sideSearchToggle');
+        const sideSearchPanel = document.getElementById('sideSearchPanel');
+        const searchPanelClose = document.getElementById('searchPanelClose');
+        const searchInput = document.getElementById('searchInput');
+        const searchClear = document.getElementById('searchClear');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        const categoryTabs = document.getElementById('categoryTabs');
+        const toolsGrid = document.getElementById('toolsGrid');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const calculatorModal = document.getElementById('calculatorModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+        document.addEventListener('DOMContentLoaded', function() {
+          initializeTheme();
+          initializeEventListeners();
+          renderTools();
+          createScrollToTopButton();
+        });
+
+        function initializeTheme() {
+          const savedTheme = localStorage.getItem('calculator-hub-theme') || 'light';
+          currentTheme = savedTheme;
+          document.documentElement.setAttribute('data-theme', currentTheme);
+          updateThemeIcon();
+        }
+
+        function toggleTheme() {
+          currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', currentTheme);
+          localStorage.setItem('calculator-hub-theme', currentTheme);
+          updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+          const icon = themeToggle.querySelector('i');
+          icon.className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function initializeEventListeners() {
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // Side Search Panel Listeners
+            sideSearchToggle.addEventListener('click', toggleSearchPanel);
+            searchPanelClose.addEventListener('click', closeSearchPanel);
+            document.addEventListener('click', (e) => {
+                if (!sideSearchPanel.contains(e.target) && !sideSearchToggle.contains(e.target)) {
+                    closeSearchPanel();
+                }
+            });
+
+            // Search Input Listeners
+            searchInput.addEventListener('input', handleSearch);
+            searchClear.addEventListener('click', clearSearch);
+            
+            // Other Listeners
+            categoryTabs.addEventListener('click', handleCategoryClick);
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            document.querySelectorAll('.nav-link, .hero-cta-button').forEach(link => {
+                link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    if(navMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                    }
+                }
+                });
+            });
+            
+            // Modal Listeners
+            modalCloseBtn.addEventListener('click', closeModal);
+            calculatorModal.addEventListener('click', (e) => {
+                if (e.target === calculatorModal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") {
+                    if (calculatorModal.classList.contains('visible')) closeModal();
+                    if (sideSearchPanel.classList.contains('active')) closeSearchPanel();
+                }
+            });
+        }
+        
+        // --- Side Search Panel Control ---
+        function openSearchPanel() {
+            if (!sideSearchPanel.classList.contains('active')) {
+                sideSearchPanel.classList.add('active');
+                searchInput.focus();
+            }
+        }
+        function closeSearchPanel() {
+            sideSearchPanel.classList.remove('active');
+        }
+        function toggleSearchPanel() {
+            sideSearchPanel.classList.contains('active') ? closeSearchPanel() : openSearchPanel();
+        }
+        
+        // --- Search Functionality ---
+        function handleSearch(e) {
+          searchQuery = e.target.value.toLowerCase();
+          searchClear.classList.toggle('visible', searchQuery.length > 0);
+          
+          const suggestions = generateSearchSuggestions();
+          if (suggestions.length > 0 && searchQuery.length > 0) {
+            renderSearchSuggestions(suggestions);
+            searchSuggestions.classList.add('visible');
+          } else {
+            searchSuggestions.classList.remove('visible');
+            searchSuggestions.innerHTML = '';
+          }
+          renderTools();
+        }
+
+        function clearSearch() {
+          searchInput.value = '';
+          searchInput.dispatchEvent(new Event('input'));
+        }
+        
+        function generateSearchSuggestions() {
+          const allTools = Object.values(toolsData).flat();
+          return allTools.filter(tool => tool.title.toLowerCase().includes(searchQuery) || tool.description.toLowerCase().includes(searchQuery)).slice(0, 8); // Show more suggestions in panel
+        }
+        
+        function renderSearchSuggestions(suggestions) {
+          searchSuggestions.innerHTML = suggestions.map(tool => `
+              <div class="suggestion-item" data-id="${tool.id}" onmousedown="selectTool('${tool.id}')">
+                <i class="${tool.icon}"></i>
+                <span>${tool.title}</span>
+              </div>`).join('');
+        }
+
+        function selectTool(toolId) {
+            closeSearchPanel();
+            handleToolClick(toolId);
+        }
+
+        // --- Modal Control ---
+        function showCalculatorModal(toolId) {
+            const allTools = Object.values(toolsData).flat();
+            const tool = allTools.find(t => t.id === toolId);
+            const implementation = calculatorImplementations[toolId];
+            
+            modalTitle.textContent = tool.title;
+            modalBody.innerHTML = implementation.getHTML();
+            implementation.attachEventListeners(calculatorModal);
+            
+            calculatorModal.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            calculatorModal.classList.remove('visible');
+            document.body.style.overflow = '';
+            modalBody.innerHTML = '';
+        }
+        
+        // --- Tool Card & Category Logic ---
+        function handleToolClick(toolId) {
+            const implementation = calculatorImplementations[toolId];
+            if (implementation) {
+                showCalculatorModal(toolId);
+            } else {
+                const allTools = Object.values(toolsData).flat();
+                const tool = allTools.find(t => t.id === toolId);
+                alert(`The "${tool.title}" is a great tool! Its interactive version is coming soon.`);
+            }
+        }
+        
+        function handleCategoryClick(e) {
+          const button = e.target.closest('.tab-button');
+          if (!button) return;
+          categoryTabs.querySelector('.active')?.classList.remove('active');
+          button.classList.add('active');
+          currentCategory = button.dataset.category;
+          renderTools();
+        }
+        
+        function renderTools() {
+          const filteredTools = getFilteredTools();
+          if (filteredTools.length === 0) {
+            toolsGrid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>No calculators found</h3><p>Try adjusting your search or category filter.</p></div>`;
+            return;
+          }
+          toolsGrid.innerHTML = filteredTools.map(tool => createToolCard(tool)).join('');
+          observeToolCards();
+        }
+
+        function getFilteredTools() {
+          let tools = (currentCategory === 'all') ? Object.values(toolsData).flat() : (toolsData[currentCategory] || []);
+          if (searchQuery) {
+            tools = tools.filter(tool => tool.title.toLowerCase().includes(searchQuery) || tool.description.toLowerCase().includes(searchQuery));
+          }
+          return tools;
+        }
+
+        function createToolCard(tool) {
+          const categoryName = getCategoryName(tool);
+          return `
+            <div class="tool-card" data-category="${categoryName.toLowerCase()}" onclick="handleToolClick('${tool.id}')">
+              <div class="tool-header">
+                <div class="tool-icon"><i class="${tool.icon}"></i></div>
+                <h3 class="tool-title">${tool.title}</h3>
+              </div>
+              <div class="tool-content"><p class="tool-description">${tool.description}</p></div>
+              <button class="tool-action">${tool.action}</button>
+            </div>`;
+        }
+        
+        function getCategoryName(tool) {
+          for (const [category, tools] of Object.entries(toolsData)) {
+            if (tools.some(t => t.id === tool.id)) return category.charAt(0).toUpperCase() + category.slice(1);
+          }
+          return 'Tool';
+        }
+        
+        // --- Utility Functions ---
+        function toggleMobileMenu() {
+          navMenu.classList.toggle('active');
+          mobileMenuToggle.classList.toggle('active');
+        }
+        
+        function createScrollToTopButton() {
+            if(document.getElementById('scrollToTop')) return;
+            const button = document.createElement('button');
+            button.id = 'scrollToTop';
+            button.className = 'scroll-to-top';
+            button.innerHTML = '<i class="fas fa-arrow-up"></i>';
+            button.style.display = 'none';
+            button.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.body.appendChild(button);
+            window.addEventListener('scroll', () => {
+                button.style.display = (window.pageYOffset > 300) ? 'flex' : 'none';
+            });
+        }
+        
+        function observeToolCards() {
+          const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.1 });
+          document.querySelectorAll('.tool-card:not(.visible)').forEach(card => {
+            observer.observe(card);
+          });
+        }
+    </script>
+</body>
+</html>
