@@ -1,1 +1,767 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Date Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4285f4;
+            --accent: #34a853;
+            --secondary: #ea4335;
+            --highlight: #fbbc05;
+            --bg-light: #f8f9fa;
+            --text-dark: #202124;
+            --text-light: #f8f9fa;
+            --border: #dadce0;
+            --success: #34a853;
+            --warning: #fbbc05;
+            --error: #ea4335;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: white;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .logo-text h1 {
+            font-weight: 500;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+        }
+
+        .calculator-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .calculator-section {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .date-input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .date-input-label {
+            min-width: 100px;
+            font-weight: 500;
+        }
+
+        .date-input-fields {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .date-input {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .date-select {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .checkbox-label {
+            cursor: pointer;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3367d6;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f1f3f4;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border);
+            margin: 20px 0;
+        }
+
+        .holiday-settings {
+            display: none;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .holiday-settings.active {
+            display: block;
+        }
+
+        .holiday-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .holiday-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-holiday {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .custom-holiday input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .result-display {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result-display.active {
+            display: block;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .result-details {
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                flex-direction: column;
+            }
+            
+            .holiday-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Advanced Date Calculator</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="calculator-container">
+            <div class="calculator-section">
+                <div class="section-title">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Days Between Two Dates</span>
+                </div>
+                <p>Find the number of years, months, weeks, and days between dates.</p>
+
+                <div class="date-input-group">
+                    <div class="date-input-label">Start Date</div>
+                    <div class="date-input-fields">
+                        <select class="date-select" id="start-month">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5" selected>Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <input type="number" class="date-input" id="start-day" min="1" max="31" value="2" style="width: 60px;">
+                        <input type="number" class="date-input" id="start-year" min="1900" max="2100" value="2025" style="width: 80px;">
+                    </div>
+                </div>
+
+                <div class="date-input-group">
+                    <div class="date-input-label">End Date</div>
+                    <div class="date-input-fields">
+                        <select class="date-select" id="end-month">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5" selected>Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <input type="number" class="date-input" id="end-day" min="1" max="31" value="2" style="width: 60px;">
+                        <input type="number" class="date-input" id="end-year" min="1900" max="2100" value="2025" style="width: 80px;">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="include-end-day">
+                    <label for="include-end-day" class="checkbox-label">Include end day (add 1 day)</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="business-days">
+                    <label for="business-days" class="checkbox-label">Calculate in business days</label>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="calculate-days">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button class="btn btn-secondary" id="settings-days">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+
+                <div class="holiday-settings" id="holiday-settings-days">
+                    <h3>Holiday Settings</h3>
+                    <div class="checkbox-group">
+                        <input type="radio" id="count-holidays" name="holiday-counting" checked>
+                        <label for="count-holidays" class="checkbox-label">Count holidays</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="radio" id="exclude-holidays" name="holiday-counting">
+                        <label for="exclude-holidays" class="checkbox-label">Do not count holidays</label>
+                    </div>
+
+                    <p>Check or define holidays below</p>
+                    <div class="holiday-list">
+                        <div class="holiday-item">
+                            <input type="checkbox" id="new-years" checked>
+                            <label for="new-years">New Year's Day</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="mlk-day" checked>
+                            <label for="mlk-day">M. L. King Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="presidents-day" checked>
+                            <label for="presidents-day">President's Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="memorial-day" checked>
+                            <label for="memorial-day">Memorial Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="juneteenth" checked>
+                            <label for="juneteenth">Juneteenth Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="independence-day" checked>
+                            <label for="independence-day">Independence Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="labor-day" checked>
+                            <label for="labor-day">Labor Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="columbus-day" checked>
+                            <label for="columbus-day">Columbus Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="veterans-day" checked>
+                            <label for="veterans-day">Veteran's Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="thanksgiving" checked>
+                            <label for="thanksgiving">Thanksgiving (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="black-friday">
+                            <label for="black-friday">Black Friday (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="christmas-eve">
+                            <label for="christmas-eve">Christmas Eve</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="christmas" checked>
+                            <label for="christmas">Christmas</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="new-years-eve">
+                            <label for="new-years-eve">New Year's Eve</label>
+                        </div>
+                    </div>
+
+                    <p>If not in the list above, define the holidays:</p>
+                    <div class="custom-holiday">
+                        <input type="text" placeholder="Holiday Name">
+                        <select class="date-select">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5">Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <input type="number" class="date-input" min="1" max="31" placeholder="Day" style="width: 60px;">
+                    </div>
+                </div>
+
+                <div class="result-display" id="days-result">
+                    <div class="result-value">0 days</div>
+                    <div class="result-details">(0 years, 0 months, 0 weeks, 0 days)</div>
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <div class="section-title">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Add to or Subtract from a Date</span>
+                </div>
+
+                <div class="date-input-group">
+                    <div class="date-input-label">Start Date</div>
+                    <div class="date-input-fields">
+                        <select class="date-select" id="add-month">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5" selected>Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <input type="number" class="date-input" id="add-day" min="1" max="31" value="2" style="width: 60px;">
+                        <input type="number" class="date-input" id="add-year" min="1900" max="2100" value="2025" style="width: 80px;">
+                    </div>
+                </div>
+
+                <div class="date-input-group">
+                    <div class="date-input-label">Add/Subtract</div>
+                    <div class="date-input-fields">
+                        <select class="date-select" id="add-subtract">
+                            <option value="add">+</option>
+                            <option value="subtract">-</option>
+                        </select>
+                        <input type="number" class="date-input" id="add-days" min="0" value="0" style="width: 80px;">
+                        <span>business days</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="add-business-days" checked>
+                    <label for="add-business-days" class="checkbox-label">Calculate in business days</label>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="calculate-add">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button class="btn btn-secondary" id="settings-add">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+
+                <div class="holiday-settings" id="holiday-settings-add">
+                    <h3>Business Days Settings</h3>
+                    <div class="checkbox-group">
+                        <input type="radio" id="exclude-weekend" name="business-settings">
+                        <label for="exclude-weekend" class="checkbox-label">Exclude weekend only</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="radio" id="exclude-weekend-holidays" name="business-settings" checked>
+                        <label for="exclude-weekend-holidays" class="checkbox-label">Exclude weekend and holidays below</label>
+                    </div>
+
+                    <div class="holiday-list">
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-new-years" checked>
+                            <label for="add-new-years">New Year's Day</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-mlk-day" checked>
+                            <label for="add-mlk-day">M. L. King Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-presidents-day" checked>
+                            <label for="add-presidents-day">President's Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-memorial-day" checked>
+                            <label for="add-memorial-day">Memorial Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-juneteenth" checked>
+                            <label for="add-juneteenth">Juneteenth Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-independence-day" checked>
+                            <label for="add-independence-day">Independence Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-labor-day" checked>
+                            <label for="add-labor-day">Labor Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-columbus-day" checked>
+                            <label for="add-columbus-day">Columbus Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-veterans-day" checked>
+                            <label for="add-veterans-day">Veteran's Day (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-thanksgiving" checked>
+                            <label for="add-thanksgiving">Thanksgiving (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-black-friday">
+                            <label for="add-black-friday">Black Friday (US)</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-christmas-eve">
+                            <label for="add-christmas-eve">Christmas Eve</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-christmas" checked>
+                            <label for="add-christmas">Christmas</label>
+                        </div>
+                        <div class="holiday-item">
+                            <input type="checkbox" id="add-new-years-eve">
+                            <label for="add-new-years-eve">New Year's Eve</label>
+                        </div>
+                    </div>
+
+                    <p>If not in the list above, define the holidays:</p>
+                    <div class="custom-holiday">
+                        <input type="text" placeholder="Holiday Name">
+                        <select class="date-select">
+                            <option value="0">Jan</option>
+                            <option value="1">Feb</option>
+                            <option value="2">Mar</option>
+                            <option value="3">Apr</option>
+                            <option value="4">May</option>
+                            <option value="5">Jun</option>
+                            <option value="6">Jul</option>
+                            <option value="7">Aug</option>
+                            <option value="8">Sep</option>
+                            <option value="9">Oct</option>
+                            <option value="10">Nov</option>
+                            <option value="11">Dec</option>
+                        </select>
+                        <input type="number" class="date-input" min="1" max="31" placeholder="Day" style="width: 60px;">
+                    </div>
+                </div>
+
+                <div class="result-display" id="add-result">
+                    <div class="result-value">June 2, 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const settingsDaysBtn = document.getElementById('settings-days');
+            const holidaySettingsDays = document.getElementById('holiday-settings-days');
+            const calculateDaysBtn = document.getElementById('calculate-days');
+            const daysResult = document.getElementById('days-result');
+            
+            const settingsAddBtn = document.getElementById('settings-add');
+            const holidaySettingsAdd = document.getElementById('holiday-settings-add');
+            const calculateAddBtn = document.getElementById('calculate-add');
+            const addResult = document.getElementById('add-result');
+
+            // Event Listeners
+            settingsDaysBtn.addEventListener('click', function() {
+                holidaySettingsDays.classList.toggle('active');
+            });
+
+            settingsAddBtn.addEventListener('click', function() {
+                holidaySettingsAdd.classList.toggle('active');
+            });
+
+            calculateDaysBtn.addEventListener('click', calculateDaysBetween);
+            calculateAddBtn.addEventListener('click', calculateAddToDate);
+
+            // Initialize with current date
+            const today = new Date();
+            document.getElementById('start-day').value = today.getDate();
+            document.getElementById('start-month').value = today.getMonth();
+            document.getElementById('start-year').value = today.getFullYear();
+            
+            document.getElementById('end-day').value = today.getDate();
+            document.getElementById('end-month').value = today.getMonth();
+            document.getElementById('end-year').value = today.getFullYear();
+            
+            document.getElementById('add-day').value = today.getDate();
+            document.getElementById('add-month').value = today.getMonth();
+            document.getElementById('add-year').value = today.getFullYear();
+
+            // Functions
+            function calculateDaysBetween() {
+                const startDate = new Date(
+                    parseInt(document.getElementById('start-year').value),
+                    parseInt(document.getElementById('start-month').value),
+                    parseInt(document.getElementById('start-day').value)
+                );
+                
+                const endDate = new Date(
+                    parseInt(document.getElementById('end-year').value),
+                    parseInt(document.getElementById('end-month').value),
+                    parseInt(document.getElementById('end-day').value)
+                );
+                
+                const includeEndDay = document.getElementById('include-end-day').checked;
+                const businessDays = document.getElementById('business-days').checked;
+                
+                let diffTime = Math.abs(endDate - startDate);
+                let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (includeEndDay) {
+                    diffDays += 1;
+                }
+                
+                if (businessDays) {
+                    diffDays = calculateBusinessDays(startDate, endDate, includeEndDay);
+                }
+                
+                // Calculate years, months, weeks, days
+                let years = Math.floor(diffDays / 365);
+                let remainingDays = diffDays % 365;
+                let months = Math.floor(remainingDays / 30);
+                remainingDays = remainingDays % 30;
+                let weeks = Math.floor(remainingDays / 7);
+                let days = remainingDays % 7;
+                
+                // Display results
+                daysResult.classList.add('active');
+                document.querySelector('#days-result .result-value').textContent = `${diffDays} days`;
+                document.querySelector('#days-result .result-details').textContent = 
+                    `(${years} years, ${months} months, ${weeks} weeks, ${days} days)`;
+            }
+            
+            function calculateAddToDate() {
+                const startDate = new Date(
+                    parseInt(document.getElementById('add-year').value),
+                    parseInt(document.getElementById('add-month').value),
+                    parseInt(document.getElementById('add-day').value)
+                );
+                
+                const addSubtract = document.getElementById('add-subtract').value;
+                let daysToAdd = parseInt(document.getElementById('add-days').value);
+                
+                if (addSubtract === 'subtract') {
+                    daysToAdd = -daysToAdd;
+                }
+                
+                const businessDays = document.getElementById('add-business-days').checked;
+                
+                let resultDate = new Date(startDate);
+                
+                if (businessDays) {
+                    resultDate = addBusinessDays(startDate, daysToAdd);
+                } else {
+                    resultDate.setDate(resultDate.getDate() + daysToAdd);
+                }
+                
+                // Format date for display
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = resultDate.toLocaleDateString('en-US', options);
+                
+                // Display results
+                addResult.classList.add('active');
+                document.querySelector('#add-result .result-value').textContent = formattedDate;
+            }
+            
+            function calculateBusinessDays(startDate, endDate, includeEndDay) {
+                // Count all days between dates excluding weekends and holidays
+                let count = 0;
+                const current = new Date(startDate);
+                
+                // Adjust end date if includeEndDay is checked
+                const adjustedEndDate = new Date(endDate);
+                if (includeEndDay) {
+                    adjustedEndDate.setDate(adjustedEndDate.getDate() + 1);
+                }
+                
+                while (current <= adjustedEndDate) {
+                    const dayOfWeek = current.getDay();
+                    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Not Sunday or Saturday
+                        if (!isHoliday(current)) {
+                            count++;
+                        }
+                    }
+                    current.setDate(current.getDate() + 1);
+                }
+                
+                return count;
+            }
+            
+            function addBusinessDays(startDate, daysToAdd) {
+                let count = 0;
+                const current = new Date(startDate);
+                
+                while (count < Math.abs(daysToAdd)) {
+                    // Move forward or backward based on daysToAdd sign
+                    if (daysToAdd > 0) {
+                        current.setDate(current.getDate() + 1);
+                    } else {
+                        current.setDate(current.getDate() - 1);
+                    }
+                    
+                    const dayOfWeek = current.getDay();
+                    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Not Sunday or Saturday
+                        if (!isHoliday(current)) {
+                            count++;
+                        }
+                    }
+                }
+                
+                return current;
+            }
+            
+            function isHoliday(date) {
+                // Check if date is a holiday based on selected options
+                // This is a simplified version - would need to implement actual holiday checks
+                // based on the checkboxes in the holiday settings
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
