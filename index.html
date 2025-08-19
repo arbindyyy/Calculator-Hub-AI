@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -89,7 +89,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
-          font-family: var(--font-primary);
+          font-family: 'Noto Sans Bengali', var(--font-primary);
           background: var(--bg-primary);
           color: var(--text-primary);
           line-height: 1.6;
@@ -494,6 +494,7 @@
                 <select id="languageSwitcher" aria-label="Language" style="margin-right: 12px; border-radius: 8px; padding: 6px 12px; font-family: var(--font-secondary);">
                     <option value="en">English</option>
                     <option value="hi">हिन्दी</option>
+                    <option value="as">অসমীয়া</option>
                 </select>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
@@ -1019,6 +1020,25 @@
                 other: "अन्य",
                 searchPlaceholder: "जैसे, BMI, मॉर्गेज, आयु...",
                 searchTitle: "कैलकुलेटर खोजें"
+            },
+            as: {
+                navHome: "হোম",
+                navCalculators: "কেলকুলেটৰ",
+                navAbout: "পৰিচয়",
+                navContact: "যোগাযোগ",
+                heroTitle1: "বুদ্ধিমান কেলকুলেটৰ",
+                heroTitle2: "প্ৰতিটো প্ৰয়োজনৰ বাবে",
+                heroDesc: "জটিল বিত্তীয় পৰিকল্পনাৰ পৰা দৈনিক স্বাস্থ্য মেট্ৰিক আৰু উন্নত গণিত সমস্যা লৈকে, আমাৰ ব্যাপক, AI-উন্নত চুইটত সঠিক সঁজুলি বিচাৰিব।",
+                heroBtn: "কেলকুলেটৰ অন্বেষণ কৰক",
+                sectionTitle: "১০০+ স্মাৰ্ট কেলকুলেটৰ",
+                sectionDesc: "শ্ৰেণী অনুসৰি সংগঠিত, কামৰ বাবে সঠিক সঁজুলি বিচাৰিব।",
+                allCalculators: "সকলো কেলকুলেটৰ",
+                financial: "বিত্তীয়",
+                health: "ফিটনেছ আৰু স্বাস্থ্য",
+                math: "গণিত",
+                other: "অন্যান্য",
+                searchPlaceholder: "যেনে, BMI, মর্টগেজ, বয়স...",
+                searchTitle: "কেলকুলেটৰ অনুসন্ধান কৰক"
             }
         };
         let currentLang = 'en';
