@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -89,7 +89,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
-          font-family: 'Noto Sans Bengali', var(--font-primary);
+          font-family: 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans Bengali', var(--font-primary);
           background: var(--bg-primary);
           color: var(--text-primary);
           line-height: 1.6;
@@ -494,7 +494,18 @@
                 <select id="languageSwitcher" aria-label="Language" style="margin-right: 12px; border-radius: 8px; padding: 6px 12px; font-family: var(--font-secondary);">
                     <option value="en">English</option>
                     <option value="hi">हिन्दी</option>
-                    <option value="as">অসমীয়া</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="fr">Français</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="it">Italiano</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="pl">Polski</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="id">Bahasa Indonesia</option>
                 </select>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
@@ -1021,24 +1032,233 @@
                 searchPlaceholder: "जैसे, BMI, मॉर्गेज, आयु...",
                 searchTitle: "कैलकुलेटर खोजें"
             },
-            as: {
-                navHome: "হোম",
-                navCalculators: "কেলকুলেটৰ",
-                navAbout: "পৰিচয়",
-                navContact: "যোগাযোগ",
-                heroTitle1: "বুদ্ধিমান কেলকুলেটৰ",
-                heroTitle2: "প্ৰতিটো প্ৰয়োজনৰ বাবে",
-                heroDesc: "জটিল বিত্তীয় পৰিকল্পনাৰ পৰা দৈনিক স্বাস্থ্য মেট্ৰিক আৰু উন্নত গণিত সমস্যা লৈকে, আমাৰ ব্যাপক, AI-উন্নত চুইটত সঠিক সঁজুলি বিচাৰিব।",
-                heroBtn: "কেলকুলেটৰ অন্বেষণ কৰক",
-                sectionTitle: "১০০+ স্মাৰ্ট কেলকুলেটৰ",
-                sectionDesc: "শ্ৰেণী অনুসৰি সংগঠিত, কামৰ বাবে সঠিক সঁজুলি বিচাৰিব।",
-                allCalculators: "সকলো কেলকুলেটৰ",
-                financial: "বিত্তীয়",
-                health: "ফিটনেছ আৰু স্বাস্থ্য",
-                math: "গণিত",
-                other: "অন্যান্য",
-                searchPlaceholder: "যেনে, BMI, মর্টগেজ, বয়স...",
-                searchTitle: "কেলকুলেটৰ অনুসন্ধান কৰক"
+            es: {
+                navHome: "Inicio",
+                navCalculators: "Calculadoras",
+                navAbout: "Acerca de",
+                navContact: "Contacto",
+                heroTitle1: "Calculadoras Inteligentes",
+                heroTitle2: "para Cada Necesidad",
+                heroDesc: "Desde la planificación financiera compleja hasta las métricas de salud diarias y los problemas matemáticos avanzados, encuentre la herramienta perfecta en nuestra suite integral mejorada por IA.",
+                heroBtn: "Explorar Calculadoras",
+                sectionTitle: "Más de 100 Calculadoras Inteligentes",
+                sectionDesc: "Encuentre la herramienta adecuada para el trabajo, organizada por categoría.",
+                allCalculators: "Todas las Calculadoras",
+                financial: "Financieras",
+                health: "Fitness y Salud",
+                math: "Matemáticas",
+                other: "Otras",
+                searchPlaceholder: "ej., IMC, Hipoteca, Edad...",
+                searchTitle: "Buscar Calculadoras"
+            },
+            de: {
+                navHome: "Startseite",
+                navCalculators: "Rechner",
+                navAbout: "Über uns",
+                navContact: "Kontakt",
+                heroTitle1: "Intelligente Rechner",
+                heroTitle2: "für jeden Bedarf",
+                heroDesc: "Von komplexer Finanzplanung über tägliche Gesundheitsmetriken bis hin zu fortgeschrittenen mathematischen Problemen – finden Sie das perfekte Werkzeug in unserer umfassenden, KI-gestützten Suite.",
+                heroBtn: "Rechner entdecken",
+                sectionTitle: "Über 100 intelligente Rechner",
+                sectionDesc: "Finden Sie das richtige Werkzeug für die Aufgabe, nach Kategorien geordnet.",
+                allCalculators: "Alle Rechner",
+                financial: "Finanzen",
+                health: "Fitness & Gesundheit",
+                math: "Mathematik",
+                other: "Andere",
+                searchPlaceholder: "z.B. BMI, Hypothek, Alter...",
+                searchTitle: "Rechner suchen"
+            },
+            ja: {
+                navHome: "ホーム",
+                navCalculators: "計算機",
+                navAbout: "概要",
+                navContact: "お問い合わせ",
+                heroTitle1: "インテリジェントな計算機",
+                heroTitle2: "あらゆるニーズに",
+                heroDesc: "複雑な財務計画から日々の健康指標、高度な数学の問題まで、AIで強化された包括的なスイートで完璧なツールを見つけてください。",
+                heroBtn: "計算機を探す",
+                sectionTitle: "100以上のスマート計算機",
+                sectionDesc: "カテゴリ別に整理された、仕事に適したツールを見つけてください。",
+                allCalculators: "すべての計算機",
+                financial: "金融",
+                health: "フィットネス＆ヘルス",
+                math: "数学",
+                other: "その他",
+                searchPlaceholder: "例：BMI、住宅ローン、年齢...",
+                searchTitle: "計算機を検索"
+            },
+            fr: {
+                navHome: "Accueil",
+                navCalculators: "Calculatrices",
+                navAbout: "À propos",
+                navContact: "Contact",
+                heroTitle1: "Calculatrices Intelligentes",
+                heroTitle2: "pour tous les besoins",
+                heroDesc: "De la planification financière complexe aux métriques de santé quotidiennes et aux problèmes de mathématiques avancés, trouvez l'outil parfait dans notre suite complète améliorée par l'IA.",
+                heroBtn: "Explorer les calculatrices",
+                sectionTitle: "Plus de 100 calculatrices intelligentes",
+                sectionDesc: "Trouvez le bon outil pour le travail, organisé par catégorie.",
+                allCalculators: "Toutes les calculatrices",
+                financial: "Financier",
+                health: "Fitness et Santé",
+                math: "Mathématiques",
+                other: "Autre",
+                searchPlaceholder: "ex. IMC, Hypothèque, Âge...",
+                searchTitle: "Rechercher des calculatrices"
+            },
+            pt: {
+                navHome: "Início",
+                navCalculators: "Calculadoras",
+                navAbout: "Sobre",
+                navContact: "Contato",
+                heroTitle1: "Calculadoras Inteligentes",
+                heroTitle2: "para todas as necessidades",
+                heroDesc: "Do planejamento financeiro complexo às métricas diárias de saúde e problemas avançados de matemática, encontre a ferramenta perfeita em nosso pacote abrangente aprimorado por IA.",
+                heroBtn: "Explorar Calculadoras",
+                sectionTitle: "Mais de 100 Calculadoras Inteligentes",
+                sectionDesc: "Encontre a ferramenta certa para o trabalho, organizada por categoria.",
+                allCalculators: "Todas as Calculadoras",
+                financial: "Financeiro",
+                health: "Fitness e Saúde",
+                math: "Matemática",
+                other: "Outro",
+                searchPlaceholder: "ex: IMC, Hipoteca, Idade...",
+                searchTitle: "Pesquisar Calculadoras"
+            },
+            ru: {
+                navHome: "Главная",
+                navCalculators: "Калькуляторы",
+                navAbout: "О нас",
+                navContact: "Контакты",
+                heroTitle1: "Интеллектуальные калькуляторы",
+                heroTitle2: "для любых нужд",
+                heroDesc: "От сложного финансового планирования до ежедневных показателей здоровья и сложных математических задач — найдите идеальный инструмент в нашем комплексном пакете, усовершенствованном искусственным интеллектом.",
+                heroBtn: "Изучить калькуляторы",
+                sectionTitle: "Более 100 умных калькуляторов",
+                sectionDesc: "Найдите подходящий инструмент для работы, упорядоченный по категориям.",
+                allCalculators: "Все калькуляторы",
+                financial: "Финансовые",
+                health: "Фитнес и здоровье",
+                math: "Математика",
+                other: "Другие",
+                searchPlaceholder: "например, ИМТ, ипотека, возраст...",
+                searchTitle: "Поиск калькуляторов"
+            },
+            it: {
+                navHome: "Home",
+                navCalculators: "Calcolatrici",
+                navAbout: "Chi siamo",
+                navContact: "Contatti",
+                heroTitle1: "Calcolatrici Intelligenti",
+                heroTitle2: "per ogni esigenza",
+                heroDesc: "Dalla complessa pianificazione finanziaria alle metriche sanitarie quotidiane e ai problemi di matematica avanzata, trova lo strumento perfetto nella nostra suite completa potenziata dall'intelligenza artificiale.",
+                heroBtn: "Esplora le Calcolatrici",
+                sectionTitle: "Oltre 100 Calcolatrici Intelligenti",
+                sectionDesc: "Trova lo strumento giusto per il lavoro, organizzato per categoria.",
+                allCalculators: "Tutte le Calcolatrici",
+                financial: "Finanziarie",
+                health: "Fitness e Salute",
+                math: "Matematica",
+                other: "Altro",
+                searchPlaceholder: "es. IMC, Mutuo, Età...",
+                searchTitle: "Cerca Calcolatrici"
+            },
+            nl: {
+                navHome: "Home",
+                navCalculators: "Rekenmachines",
+                navAbout: "Over ons",
+                navContact: "Contact",
+                heroTitle1: "Intelligente Rekenmachines",
+                heroTitle2: "voor elke behoefte",
+                heroDesc: "Van complexe financiële planning tot dagelijkse gezondheidsstatistieken en geavanceerde wiskundige problemen, vind de perfecte tool in onze uitgebreide, door AI verbeterde suite.",
+                heroBtn: "Ontdek Rekenmachines",
+                sectionTitle: "100+ Slimme Rekenmachines",
+                sectionDesc: "Vind de juiste tool voor de klus, georganiseerd per categorie.",
+                allCalculators: "Alle Rekenmachines",
+                financial: "Financieel",
+                health: "Fitness & Gezondheid",
+                math: "Wiskunde",
+                other: "Overig",
+                searchPlaceholder: "bijv. BMI, Hypotheek, Leeftijd...",
+                searchTitle: "Zoek Rekenmachines"
+            },
+            pl: {
+                navHome: "Strona główna",
+                navCalculators: "Kalkulatory",
+                navAbout: "O nas",
+                navContact: "Kontakt",
+                heroTitle1: "Inteligentne Kalkulatory",
+                heroTitle2: "dla każdej potrzeby",
+                heroDesc: "Od złożonego planowania finansowego po codzienne wskaźniki zdrowotne i zaawansowane problemy matematyczne, znajdź idealne narzędzie w naszym kompleksowym pakiecie wzmocnionym przez sztuczną inteligencję.",
+                heroBtn: "Przeglądaj Kalkulatory",
+                sectionTitle: "Ponad 100 Inteligentnych Kalkulatorów",
+                sectionDesc: "Znajdź odpowiednie narzędzie do pracy, uporządkowane według kategorii.",
+                allCalculators: "Wszystkie Kalkulatory",
+                financial: "Finansowe",
+                health: "Fitness i Zdrowie",
+                math: "Matematyka",
+                other: "Inne",
+                searchPlaceholder: "np. BMI, Kredyt hipoteczny, Wiek...",
+                searchTitle: "Szukaj Kalkulatorów"
+            },
+            'zh-CN': {
+                navHome: "首页",
+                navCalculators: "计算器",
+                navAbout: "关于",
+                navContact: "联系",
+                heroTitle1: "智能计算器",
+                heroTitle2: "满足各种需求",
+                heroDesc: "从复杂的财务规划到日常健康指标和高级数学问题，在我们全面的人工智能增强套件中找到完美的工具。",
+                heroBtn: "探索计算器",
+                sectionTitle: "100多个智能计算器",
+                sectionDesc: "按类别查找适合工作的工具。",
+                allCalculators: "所有计算器",
+                financial: "金融",
+                health: "健身与健康",
+                math: "数学",
+                other: "其他",
+                searchPlaceholder: "例如，BMI、抵押、年龄...",
+                searchTitle: "搜索计算器"
+            },
+            ar: {
+                navHome: "الرئيسية",
+                navCalculators: "الحاسبات",
+                navAbout: "حول",
+                navContact: "اتصل",
+                heroTitle1: "حاسبات ذكية",
+                heroTitle2: "لكل حاجة",
+                heroDesc: "من التخطيط المالي المعقد إلى مقاييس الصحة اليومية ومشاكل الرياضيات المتقدمة، ابحث عن الأداة المثالية في مجموعتنا الشاملة المعززة بالذكاء الاصطناعي.",
+                heroBtn: "اكتشف الحاسبات",
+                sectionTitle: "أكثر من 100 حاسبة ذكية",
+                sectionDesc: "ابحث عن الأداة المناسبة للمهمة، منظمة حسب الفئة.",
+                allCalculators: "جميع الحاسبات",
+                financial: "المالية",
+                health: "اللياقة والصحة",
+                math: "الرياضيات",
+                other: "أخرى",
+                searchPlaceholder: "على سبيل المثال، مؤشر كتلة الجسم، الرهن العقاري، العمر...",
+                searchTitle: "البحث في الحاسبات"
+            },
+            id: {
+                navHome: "Beranda",
+                navCalculators: "Kalkulator",
+                navAbout: "Tentang",
+                navContact: "Kontak",
+                heroTitle1: "Kalkulator Cerdas",
+                heroTitle2: "untuk Setiap Kebutuhan",
+                heroDesc: "Dari perencanaan keuangan yang kompleks hingga metrik kesehatan harian dan masalah matematika tingkat lanjut, temukan alat yang sempurna di suite komprehensif kami yang disempurnakan dengan AI.",
+                heroBtn: "Jelajahi Kalkulator",
+                sectionTitle: "100+ Kalkulator Cerdas",
+                sectionDesc: "Temukan alat yang tepat untuk pekerjaan itu, diatur berdasarkan kategori.",
+                allCalculators: "Semua Kalkulator",
+                financial: "Keuangan",
+                health: "Kebugaran & Kesehatan",
+                math: "Matematika",
+                other: "Lainnya",
+                searchPlaceholder: "misalnya, BMI, Hipotek, Usia...",
+                searchTitle: "Cari Kalkulator"
             }
         };
         let currentLang = 'en';
