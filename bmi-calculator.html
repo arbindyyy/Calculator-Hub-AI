@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Calculator Hub AI</title>
+    <meta name="description" content="Calculate your Body Mass Index (BMI) with our easy-to-use BMI calculator. Understand your BMI and what it means for your health.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <style>
+        /* Calculator Loop - Modern Calculator UI Styles */
+
+        /* CSS Custom Properties */
+        :root {
+          /* Colors - Light Mode */
+          --bg-primary: #FFFFFF;
+          --bg-secondary: #F8FAFC;
+          --bg-tertiary: #F1F5F9;
+          --text-primary: #1A1F3A;
+          --text-secondary: #64748B;
+          --text-muted: #94A3B8;
+
+          /* Accent Colors */
+          --accent-blue: #00D4FF;
+          --accent-purple: #8B5CF6;
+          --accent-green: #00FF88;
+          --accent-pink: #FF006E;
+          --accent-cyan: #22D3EE;
+
+          /* Gradients */
+          --gradient-ai: linear-gradient(135deg, #00D4FF 0%, #8B5CF6 100%);
+          --gradient-neon: linear-gradient(135deg, #00FF88 0%, #22D3EE 100%);
+          --gradient-dark: linear-gradient(135deg, #0A0E27 0%, #1A1F3A 100%);
+
+          /* Shadows */
+          --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+          --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+          --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+
+          /* Glassmorphism */
+          --glass-bg: rgba(255, 255, 255, 0.1);
+          --glass-border: rgba(255, 255, 255, 0.2);
+          --glass-blur: blur(20px);
+
+          /* Spacing */
+          --space-xs: 4px;
+          --space-sm: 8px;
+          --space-md: 16px;
+          --space-lg: 24px;
+          --space-xl: 32px;
+          --space-2xl: 48px;
+          --space-3xl: 64px;
+
+          /* Typography */
+          --font-primary: 'Poppins', sans-serif;
+          --font-secondary: 'Inter', sans-serif;
+          --font-accent: 'Manrope', sans-serif;
+
+          /* Transitions */
+          --transition-fast: 200ms ease-in-out;
+          --transition-normal: 300ms ease-in-out;
+          --transition-slow: 500ms ease-in-out;
+        }
+
+        /* Dark Mode */
+        [data-theme="dark"] {
+          --bg-primary: #0A0E27;
+          --bg-secondary: #1A1F3A;
+          --bg-tertiary: #252B4A;
+          --text-primary: #FFFFFF;
+          --text-secondary: #94A3B8;
+          --text-muted: #64748B;
+
+          --glass-bg: rgba(0, 0, 0, 0.2);
+          --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Reset and Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+          font-family: 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans Bengali', var(--font-primary);
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          line-height: 1.6;
+          transition: background-color var(--transition-normal), color var(--transition-normal);
+          overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .gradient-text { background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glass-effect { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); }
+
+        /* Navigation */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: var(--space-md) 0; background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--glass-border); transition: all var(--transition-normal); }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo-text { font-family: var(--font-accent); font-size: 2rem; font-weight: 800; background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+        .logo-tagline { font-family: var(--font-secondary); font-size: 0.75rem; color: var(--text-secondary); margin-top: -4px; }
+        .nav-menu { display: flex; gap: var(--space-xl); }
+        .nav-link { font-family: var(--font-secondary); font-weight: 500; color: var(--text-secondary); text-decoration: none; padding: var(--space-sm) var(--space-md); border-radius: 8px; transition: all var(--transition-fast); position: relative; }
+        .nav-link:hover, .nav-link.active { color: var(--accent-blue); background: var(--glass-bg); }
+        .nav-controls { display: flex; align-items: center; gap: var(--space-md); }
+        .theme-toggle { width: 44px; height: 44px; border: none; border-radius: 12px; background: var(--glass-bg); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); }
+        .theme-toggle:hover { color: var(--accent-blue); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .mobile-menu-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: var(--space-sm); }
+        .mobile-menu-toggle span { width: 24px; height: 2px; background: var(--text-primary); transition: all var(--transition-fast); }
+
+        /* Main Content & Sections */
+        .main-content { margin-top: 100px; }
+        .calculator-page-section { padding: var(--space-3xl) 0; background: var(--bg-secondary); }
+        .tools-container { max-width: 800px; margin: 0 auto; padding: 0 var(--space-lg); }
+        .section-header { text-align: center; margin-bottom: var(--space-3xl); }
+        .section-title { font-size: 3rem; font-weight: 700; margin: 0 0 var(--space-md) 0; }
+        .section-description { font-size: 1.25rem; color: var(--text-secondary); margin: 0; }
+
+        /* Calculator Form Styles */
+        .calculator-form-container {
+          background: var(--bg-primary);
+          padding: var(--space-xl);
+          border-radius: 16px;
+          box-shadow: var(--shadow-lg);
+        }
+        .calculator-form .form-group {
+          margin-bottom: var(--space-lg);
+        }
+        .calculator-form label {
+          display: block;
+          font-family: var(--font-secondary);
+          font-weight: 600;
+          color: var(--text-secondary);
+          margin-bottom: var(--space-sm);
+        }
+        .calculator-form input, .calculator-form select {
+          width: 100%;
+          padding: var(--space-md);
+          border: 1px solid var(--bg-tertiary);
+          background: var(--bg-primary);
+          border-radius: 8px;
+          color: var(--text-primary);
+          font-size: 1rem;
+          transition: border-color var(--transition-fast);
+        }
+        .calculator-form input:focus, .calculator-form select:focus {
+          outline: none;
+          border-color: var(--accent-blue);
+        }
+        .calculator-result-area {
+          margin-top: var(--space-xl);
+          padding: var(--space-lg);
+          background: var(--bg-tertiary);
+          border-radius: 12px;
+          text-align: center;
+        }
+        .result-title {
+          font-family: var(--font-secondary);
+          color: var(--text-muted);
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .result-value {
+          font-family: var(--font-accent);
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin: var(--space-sm) 0;
+          color: var(--text-primary);
+          word-wrap: break-word;
+        }
+        .result-interpretation {
+          color: var(--text-secondary);
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer { background: var(--bg-tertiary); padding: var(--space-2xl) 0 var(--space-lg) 0; border-top: 1px solid var(--glass-border); }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg); }
+        .footer-brand { display: flex; flex-direction: column; gap: var(--space-sm); }
+        .footer-logo { font-family: var(--font-accent); font-size: 1.5rem; font-weight: 800; background: var(--gradient-ai); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; }
+        .footer-tagline { color: var(--text-secondary); margin: 0; }
+        .footer-links { display: flex; align-items: center; gap: var(--space-md); }
+        .footer-link { color: var(--text-secondary); text-decoration: none; font-family: var(--font-secondary); transition: color var(--transition-fast); }
+        .footer-link:hover { color: var(--accent-blue); }
+        .footer-separator { color: var(--text-muted); }
+        .footer-bottom { text-align: center; padding-top: var(--space-lg); border-top: 1px solid var(--glass-border); }
+        .footer-copyright { color: var(--text-muted); font-size: 0.875rem; margin: 0; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <h1 class="logo-text">Calculator Hub AI</h1>
+                <span class="logo-tagline">Your All-in-One Calculator Suite</span>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Home</a>
+            </div>
+
+            <div class="nav-controls">
+                <select id="languageSwitcher" aria-label="Language" style="margin-right: 12px; border-radius: 8px; padding: 6px 12px; font-family: var(--font-secondary);">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="fr">Français</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="it">Italiano</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="pl">Polski</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="id">Bahasa Indonesia</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="calculator-page-section" id="bmi-calculator">
+            <div class="tools-container">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <span class="gradient-text">BMI</span> Calculator
+                    </h1>
+                    <p class="section-description">
+                        Calculate your Body Mass Index to assess your weight status.
+                    </p>
+                </div>
+
+                <div class="calculator-form-container">
+                    <form class="calculator-form">
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" value="175" placeholder="e.g., 175">
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" value="70" placeholder="e.g., 70">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Your BMI</p>
+                            <p class="result-value" id="resultValue">--</p>
+                            <p class="result-interpretation" id="resultInterpretation"></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
+                    <h2>Understanding Body Mass Index (BMI)</h2>
+                    <p>Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy. The BMI calculation divides an adult's weight in kilograms by their height in metres squared.</p>
+                    <p>For most adults, an ideal BMI is in the 18.5 to 24.9 range. For children and young people aged 2 to 18, the BMI calculation takes into account age and gender as well as height and weight.</p>
+                    <h3>How to Interpret BMI Results:</h3>
+                    <ul>
+                        <li><strong>Below 18.5</strong> – Underweight</li>
+                        <li><strong>18.5 – 24.9</strong> – Healthy Weight</li>
+                        <li><strong>25.0 – 29.9</strong> – Overweight</li>
+                        <li><strong>30.0 and Above</strong> – Obesity</li>
+                    </ul>
+                    <p>While BMI is a useful indicator of a healthy weight for a large majority of the population, it doesn't tell the whole story. It doesn't take into account factors such as muscle mass, bone density, overall body composition, and racial and sex differences.</p>
+                </div>
+
+                <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
+                    <h2>Frequently Asked Questions (FAQ)</h2>
+                    <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                        <h3>What is a good BMI?</h3>
+                        <p>For most adults, a BMI between 18.5 and 24.9 is considered to be a healthy weight. A BMI of 25.0 or more is overweight, while a BMI of 30.0 or more is classified as obesity.</p>
+                    </div>
+                    <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                        <h3>Is BMI accurate for everyone?</h3>
+                        <p>BMI is a useful tool for most people, but it has limitations. It may not be accurate for people with high muscle mass (like athletes), older adults, and certain ethnic groups. It's a screening tool, not a diagnostic one.</p>
+                    </div>
+                    <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                        <h3>How can I improve my BMI?</h3>
+                        <p>If your BMI is outside the healthy range, you can improve it through a combination of a balanced diet and regular physical activity. Consult a healthcare professional for personalized advice.</p>
+                    </div>
+                </div>
+
+                <script type="application/ld+json">
+                {
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  "mainEntity": [{
+                    "@type": "Question",
+                    "name": "What is a good BMI?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "For most adults, a BMI between 18.5 and 24.9 is considered to be a healthy weight. A BMI of 25.0 or more is overweight, while a BMI of 30.0 or more is classified as obesity."
+                    }
+                  }, {
+                    "@type": "Question",
+                    "name": "Is BMI accurate for everyone?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "BMI is a useful tool for most people, but it has limitations. It may not be accurate for people with high muscle mass (like athletes), older adults, and certain ethnic groups. It's a screening tool, not a diagnostic one."
+                    }
+                  }, {
+                    "@type": "Question",
+                    "name": "How can I improve my BMI?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "If your BMI is outside the healthy range, you can improve it through a combination of a balanced diet and regular physical activity. Consult a healthcare professional for personalized advice."
+                    }
+                  }]
+                }
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">Calculator Hub AI</h3>
+                    <p class="footer-tagline">AI-Enhanced Calculators for Everyone</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="#privacy" class="footer-link">Privacy Policy</a>
+                    <span class="footer-separator">|</span>
+                    <a href="#terms" class="footer-link">Terms of Service</a>
+                    <span class="footer-separator">|</span>
+                    <a href="#report" class="footer-link">Report Issue</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Calculator Hub AI. Your trusted source for smart calculations.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Core Application Logic ---
+        let currentTheme = 'light';
+
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        function initializeTheme() {
+          const savedTheme = localStorage.getItem('calculator-hub-theme') || 'light';
+          currentTheme = savedTheme;
+          document.documentElement.setAttribute('data-theme', currentTheme);
+          updateThemeIcon();
+        }
+
+        function toggleTheme() {
+          currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', currentTheme);
+          localStorage.setItem('calculator-hub-theme', currentTheme);
+          updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+          const icon = themeToggle.querySelector('i');
+          icon.className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function toggleMobileMenu() {
+          navMenu.classList.toggle('active');
+          mobileMenuToggle.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            themeToggle.addEventListener('click', toggleTheme);
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+            // BMI Calculator Logic
+            const form = document.querySelector('.calculator-form');
+            const calculate = () => {
+                const heightCm = parseFloat(document.querySelector('#height').value);
+                const weightKg = parseFloat(document.querySelector('#weight').value);
+
+                if (heightCm > 0 && weightKg > 0) {
+                    const heightM = heightCm / 100;
+                    const bmi = weightKg / (heightM * heightM);
+
+                    let interpretation = 'Based on your BMI, you are in the ';
+                    if (bmi < 18.5) interpretation += 'Underweight range.';
+                    else if (bmi < 25) interpretation += 'Normal weight range.';
+                    else if (bmi < 30) interpretation += 'Overweight range.';
+                    else interpretation += 'Obesity range.';
+
+                    document.querySelector('#resultValue').textContent = bmi.toFixed(1);
+                    document.querySelector('#resultInterpretation').textContent = interpretation + ' This is an estimate, consult a healthcare professional for advice.';
+                } else {
+                    document.querySelector('#resultValue').textContent = '--';
+                    document.querySelector('#resultInterpretation').textContent = 'Please enter a valid height and weight.';
+                }
+            };
+            form.addEventListener('input', calculate);
+            calculate();
+        });
+    </script>
+</body>
+</html>
