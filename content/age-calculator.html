@@ -1,0 +1,67 @@
+<!-- title: Age Calculator -->
+<!-- description: Calculate your age in years, months, and days with our easy-to-use Age Calculator. -->
+        <section class="calculator-page-section" id="age-calculator">
+            <div class="tools-container">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <span class="gradient-text">Age</span> Calculator
+                    </h1>
+                    <p class="section-description">
+                        Calculate your age in years, months, and days.
+                    </p>
+                </div>
+
+                <div class="calculator-form-container">
+                    <form class="calculator-form">
+                        <div class="form-group">
+                            <label for="birthDate">Enter Your Date of Birth</label>
+                            <input type="date" id="birthDate">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Your Age Is</p>
+                            <p class="result-value" id="resultValue">--</p>
+                            <p class="result-interpretation" id="resultInterpretation">Enter a date to see your age.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.calculator-form');
+        const birthDateInput = document.querySelector('#birthDate');
+
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0];
+        birthDateInput.max = formattedToday;
+        birthDateInput.value = formattedToday;
+
+        const calculate = () => {
+            if (!birthDateInput.value) return;
+
+            const birthDate = new Date(birthDateInput.value);
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            if (years >= 0) {
+                document.querySelector('#resultValue').textContent = `${years}y ${months}m ${days}d`;
+                document.querySelector('#resultInterpretation').textContent = `Calculated as of ${today.toLocaleDateString()}`;
+            } else {
+                document.querySelector('#resultValue').textContent = '--';
+                document.querySelector('#resultInterpretation').textContent = 'Birth date cannot be in the future.';
+            }
+        };
+        form.addEventListener('input', calculate);
+        calculate();
+    });
+</script>

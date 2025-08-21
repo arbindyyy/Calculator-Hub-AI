@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator Hub AI - Financial, Health & Math Calculators</title>
+    <title>Calculator Hub AI - Financial, Health & Math Calculators - Calculator Hub AI</title>
     <meta name="description" content="Over 100+ AI-enhanced calculators for finance, health, math, and more. Your all-in-one suite for every calculation need.">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="static/css/style.css">
 </head>
@@ -22,22 +21,31 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
+            <a href="/" class="nav-logo">
                 <h1 class="logo-text">Calculator Hub AI</h1>
                 <span class="logo-tagline">Your All-in-One Calculator Suite</span>
-            </div>
-            
+            </a>
+
             <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#calculators" class="nav-link">Calculators</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="/" class="nav-link">Home</a>
             </div>
-            
+
             <div class="nav-controls">
                 <select id="languageSwitcher" aria-label="Language" style="margin-right: 12px; border-radius: 8px; padding: 6px 12px; font-family: var(--font-secondary);">
                     <option value="en">English</option>
                     <option value="hi">हिन्दी</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="fr">Français</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="it">Italiano</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="pl">Polski</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="id">Bahasa Indonesia</option>
                 </select>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
@@ -51,28 +59,11 @@
         </div>
     </nav>
 
-    <!-- Side-Mounted Search Panel -->
-    <button class="side-search-toggle" id="sideSearchToggle" aria-label="Open search panel">
-        <i class="fas fa-search"></i>
-    </button>
-    <div class="side-search-panel" id="sideSearchPanel">
-        <div class="search-panel-header">
-            <h3 class="search-panel-title">Search Calculators</h3>
-            <button class="search-panel-close" id="searchPanelClose" aria-label="Close search panel">×</button>
-        </div>
-        <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" placeholder="e.g., BMI, Mortgage, Age..." class="search-input" id="searchInput">
-            <button class="search-clear" id="searchClear">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="search-suggestions" id="searchSuggestions"></div>
-    </div>
-
 
     <!-- Main Content -->
     <main class="main-content">
+
+
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="hero-container">
@@ -90,7 +81,7 @@
                         Explore Calculators
                     </a>
                 </div>
-                
+
                 <div class="hero-visual">
                     <div class="floating-cards">
                         <div class="feature-card card-1">
@@ -152,6 +143,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- Footer -->
@@ -162,7 +154,7 @@
                     <h3 class="footer-logo">Calculator Hub AI</h3>
                     <p class="footer-tagline">AI-Enhanced Calculators for Everyone</p>
                 </div>
-                
+
                 <div class="footer-links">
                     <a href="#privacy" class="footer-link">Privacy Policy</a>
                     <span class="footer-separator">|</span>
@@ -171,7 +163,7 @@
                     <a href="#report" class="footer-link">Report Issue</a>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p class="footer-copyright">
                     © 2025 Calculator Hub AI. Your trusted source for smart calculations.
@@ -179,19 +171,6 @@
             </div>
         </div>
     </footer>
-    
-    <!-- Calculator Modal -->
-    <div class="modal-overlay" id="calculatorModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Calculator</h2>
-                <button class="modal-close-btn" id="modalCloseBtn">×</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Calculator form will be injected here -->
-            </div>
-        </div>
-    </div>
 
 
     <!-- Scripts -->

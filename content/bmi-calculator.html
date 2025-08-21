@@ -1,0 +1,91 @@
+<!-- title: BMI Calculator -->
+<!-- description: Calculate your Body Mass Index (BMI) with our easy-to-use BMI calculator. Understand your BMI and what it means for your health. -->
+        <section class="calculator-page-section" id="bmi-calculator">
+            <div class="tools-container">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <span class="gradient-text">BMI</span> Calculator
+                    </h1>
+                    <p class="section-description">
+                        Calculate your Body Mass Index to assess your weight status.
+                    </p>
+                </div>
+
+                <div class="calculator-form-container">
+                    <form class="calculator-form">
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" value="175" placeholder="e.g., 175">
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" value="70" placeholder="e.g., 70">
+                        </div>
+                        <div class="calculator-result-area">
+                            <p class="result-title">Your BMI</p>
+                            <p class="result-value" id="resultValue">--</p>
+                            <p class="result-interpretation" id="resultInterpretation"></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
+                    <h2>Understanding Body Mass Index (BMI)</h2>
+                    <p>Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy. The BMI calculation divides an adult's weight in kilograms by their height in metres squared.</p>
+                    <p>For most adults, an ideal BMI is in the 18.5 to 24.9 range. For children and young people aged 2 to 18, the BMI calculation takes into account age and gender as well as height and weight.</p>
+                    <h3>How to Interpret BMI Results:</h3>
+                    <ul>
+                        <li><strong>Below 18.5</strong> – Underweight</li>
+                        <li><strong>18.5 – 24.9</strong> – Healthy Weight</li>
+                        <li><strong>25.0 – 29.9</strong> – Overweight</li>
+                        <li><strong>30.0 and Above</strong> – Obesity</li>
+                    </ul>
+                    <p>While BMI is a useful indicator of a healthy weight for a large majority of the population, it doesn't tell the whole story. It doesn't take into account factors such as muscle mass, bone density, overall body composition, and racial and sex differences.</p>
+                </div>
+
+                <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
+                    <h2>Frequently Asked Questions (FAQ)</h2>
+                    <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                        <h3>What is a good BMI?</h3>
+                        <p>For most adults, a BMI between 18.5 and 24.9 is considered to be a healthy weight. A BMI of 25.0 or more is overweight, while a BMI of 30.0 or more is classified as obesity.</p>
+                    </div>
+                    <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                        <h3>Is BMI accurate for everyone?</h3>
+                        <p>BMI is a useful tool for most people, but it has limitations. It may not be accurate for people with high muscle mass (like athletes), older adults, and certain ethnic groups. It's a screening tool, not a diagnostic one.</p>
+                    </div>
+                    <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                        <h3>How can I improve my BMI?</h3>
+                        <p>If your BMI is outside the healthy range, you can improve it through a combination of a balanced diet and regular physical activity. Consult a healthcare professional for personalized advice.</p>
+                    </div>
+                </div>
+
+                <script type="application/ld+json">
+                {
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  "mainEntity": [{
+                    "@type": "Question",
+                    "name": "What is a good BMI?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "For most adults, a BMI between 18.5 and 24.9 is considered to be a healthy weight. A BMI of 25.0 or more is overweight, while a BMI of 30.0 or more is classified as obesity."
+                    }
+                  }, {
+                    "@type": "Question",
+                    "name": "Is BMI accurate for everyone?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "BMI is a useful tool for most people, but it has limitations. It may not be accurate for people with high muscle mass (like athletes), older adults, and certain ethnic groups. It's a screening tool, not a diagnostic one."
+                    }
+                  }, {
+                    "@type": "Question",
+                    "name": "How can I improve my BMI?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "If your BMI is outside the healthy range, you can improve it through a combination of a balanced diet and regular physical activity. Consult a healthcare professional for personalized advice."
+                    }
+                  }]
+                }
+                </script>
+            </div>
+        </section>
