@@ -6,11 +6,8 @@ def run_verification():
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        # Get the absolute path to the index.html file in the dist directory
-        file_path = os.path.abspath('dist/index.html')
-
-        # Go to the local file
-        page.goto(f'file://{file_path}')
+        # Go to the local server
+        page.goto('http://localhost:8000')
 
         # Find the Age calculator card and click it
         age_card_link = page.locator('a[href="age-calculator.html"]')
