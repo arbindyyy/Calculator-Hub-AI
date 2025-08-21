@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Calculator - Calculator Hub AI</title>
+    <meta name="description" content="Add or subtract days from a date.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@700;800&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <h1 class="logo-text">Calculator Hub AI</h1>
+                <span class="logo-tagline">Your All-in-One Calculator Suite</span>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Home</a>
+            </div>
+
+            <div class="nav-controls">
+                <select id="languageSwitcher" aria-label="Language" style="margin-right: 12px; border-radius: 8px; padding: 6px 12px; font-family: var(--font-secondary);">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="es">Español</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="fr">Français</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="it">Italiano</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="pl">Polski</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="id">Bahasa Indonesia</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="calculator-page-section" id="date-calculator">
+    <div class="tools-container">
+        <div class="section-header">
+            <h1 class="section-title">
+                <span class="gradient-text">Date</span> Calculator
+            </h1>
+            <p class="section-description">
+                Add or subtract days from a date.
+            </p>
+        </div>
+
+        <div class="calculator-form-container">
+            <form class="calculator-form">
+                <div class="form-group"><p>This calculator is being updated. Please check back soon!</p></div>
+            </form>
+            <div class="calculator-result-area">
+                <p class="result-title">Result</p>
+                <p class="result-value" id="resultValue">--</p>
+                <p class="result-interpretation" id="resultInterpretation"></p>
+            </div>
+        </div>
+
+        <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
+            <h2>Understanding the Date Calculator</h2>
+            <p>This section explains the purpose of the Date Calculator and how it can be used in various scenarios. Detailed explanations of the inputs and outputs are provided to help you get the most out of this tool.</p>
+        </div>
+
+        <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+            <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                <h3>What is the Date Calculator?</h3>
+                <p>The Date Calculator helps you add or subtract days from a date..</p>
+            </div>
+            <div class="faq-item" style="margin-bottom: var(--space-lg);">
+                <h3>How do I use the Date Calculator?</h3>
+                <p>Simply enter the required values into the form fields. The calculator will automatically update with the result.</p>
+            </div>
+        </div>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [{
+            "@type": "Question",
+            "name": "What is the Date Calculator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Date Calculator helps you add or subtract days from a date.."
+            }
+          }, {
+            "@type": "Question",
+            "name": "How do I use the Date Calculator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Simply enter the required values into the form fields. The calculator will automatically update with the result."
+            }
+          }]
+        }
+        </script>
+    </div>
+</section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">Calculator Hub AI</h3>
+                    <p class="footer-tagline">AI-Enhanced Calculators for Everyone</p>
+                </div>
+
+                <div class="footer-links">
+                    <a href="#privacy" class="footer-link">Privacy Policy</a>
+                    <span class="footer-separator">|</span>
+                    <a href="#terms" class="footer-link">Terms of Service</a>
+                    <span class="footer-separator">|</span>
+                    <a href="#report" class="footer-link">Report Issue</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Calculator Hub AI. Your trusted source for smart calculations.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="static/js/main.js"></script>
+</body>
+</html>

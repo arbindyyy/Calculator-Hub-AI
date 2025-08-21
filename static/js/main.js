@@ -321,10 +321,7 @@ const categoryTabs = document.getElementById('categoryTabs');
 const toolsGrid = document.getElementById('toolsGrid');
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navMenu = document.getElementById('navMenu');
-const calculatorModal = document.getElementById('calculatorModal');
-const modalTitle = document.getElementById('modalTitle');
-const modalBody = document.getElementById('modalBody');
-const modalCloseBtn = document.getElementById('modalCloseBtn');
+// Modal-related elements are no longer needed as each calculator has its own page.
 
 // --- Language Translation ---
 const translations = {
@@ -460,14 +457,8 @@ function initializeEventListeners() {
         });
     });
 
-    // Modal Listeners
-    modalCloseBtn.addEventListener('click', closeModal);
-    calculatorModal.addEventListener('click', (e) => {
-        if (e.target === calculatorModal) closeModal();
-    });
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
-            if (calculatorModal.classList.contains('visible')) closeModal();
             if (sideSearchPanel.classList.contains('active')) closeSearchPanel();
         }
     });
@@ -521,41 +512,8 @@ function renderSearchSuggestions(suggestions) {
       </div>`).join('');
 }
 
-function selectTool(toolId) {
-    closeSearchPanel();
-    handleToolClick(toolId);
-}
-
-// --- Modal Control ---
-function showCalculatorModal(toolId) {
-    const allTools = Object.values(toolsData).flat();
-    const tool = allTools.find(t => t.id === toolId);
-    const implementation = calculatorImplementations[toolId];
-
-    modalTitle.textContent = tool.title;
-    modalBody.innerHTML = implementation.getHTML();
-    implementation.attachEventListeners(calculatorModal);
-
-    calculatorModal.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-    calculatorModal.classList.remove('visible');
-    document.body.style.overflow = '';
-    modalBody.innerHTML = '';
-}
-
 // --- Tool Card & Category Logic ---
-function handleToolClick(toolId) {
-    const implementation = calculatorImplementations[toolId];
-    if (implementation) {
-        showCalculatorModal(toolId);
-    } else {
-        const allTools = Object.values(toolsData).flat();
-        const tool = allTools.find(t => t.id === toolId);
-        alert(`The "${tool.title}" is a great tool! Its interactive version is coming soon.`);
-    }
-}
+// Note: handleToolClick and modal functions have been removed as all calculators now have dedicated pages.
 
 function handleCategoryClick(e) {
   const button = e.target.closest('.tab-button');
@@ -586,9 +544,9 @@ function getFilteredTools() {
 
 function createToolCard(tool) {
   const categoryName = getCategoryName(tool);
-  if (tool.id === 'bmi-calculator' || tool.id === 'age-calculator') {
-    return `
-      <a href="${tool.id}.html" style="text-decoration: none;">
+  // All tool cards are now links to their dedicated pages.
+  return `
+      <a href="${tool.id}.html" class="tool-card-link">
         <div class="tool-card" data-category="${categoryName.toLowerCase()}">
           <div class="tool-header">
             <div class="tool-icon"><i class="${tool.icon}"></i></div>
@@ -598,16 +556,6 @@ function createToolCard(tool) {
           <button class="tool-action">Go to Page</button>
         </div>
       </a>`;
-  }
-  return `
-    <div class="tool-card" data-category="${categoryName.toLowerCase()}" onclick="handleToolClick('${tool.id}')">
-      <div class="tool-header">
-        <div class="tool-icon"><i class="${tool.icon}"></i></div>
-        <h3 class="tool-title">${tool.title}</h3>
-      </div>
-      <div class="tool-content"><p class="tool-description">${tool.description}</p></div>
-      <button class="tool-action">${tool.action}</button>
-    </div>`;
 }
 
 function getCategoryName(tool) {

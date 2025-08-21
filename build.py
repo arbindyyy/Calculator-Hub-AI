@@ -29,16 +29,18 @@ def main():
             with open(os.path.join('content', filename), 'r') as f:
                 content = f.read()
 
-            # Extract metadata from comments
-            title_match = re.search(r'<!-- title: (.*) -->', content)
-            description_match = re.search(r'<!-- description: (.*) -->', content)
+            # Extract metadata directly from the content's HTML tags
+            title = "Calculator Hub AI" # Default title
+            title_match = re.search(r'<h1 class="section-title.*?>(.*?)</h1>', content, re.DOTALL)
+            if title_match:
+                # Clean up the extracted title (remove tags and extra whitespace)
+                raw_title = title_match.group(1)
+                clean_title = re.sub(r'<.*?>', '', raw_title).strip()
+                clean_title = re.sub(r'\s+', ' ', clean_title)
+                title = f"{clean_title} - Calculator Hub AI"
 
-            title = title_match.group(1) if title_match else "Calculator Hub AI"
-            description = description_match.group(1) if description_match else "A collection of useful calculators."
-
-            # Remove metadata comments from the final content
-            content = re.sub(r'<!-- title: (.*) -->', '', content)
-            content = re.sub(r'<!-- description: (.*) -->', '', content)
+            description_match = re.search(r'<p class="section-description.*?>(.*?)</p>', content, re.DOTALL)
+            description = description_match.group(1).strip() if description_match else "A collection of useful calculators."
 
             # Inject the content and metadata
             final_page = page_template.replace("{{ content }}", content)

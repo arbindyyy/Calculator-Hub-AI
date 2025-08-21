@@ -334,74 +334,14 @@ body {
 .tool-card[data-category="math"] .tool-icon { background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%); }
 .tool-card[data-category="other"] .tool-icon { background: linear-gradient(135deg, #FFC107 0%, #FF8F00 100%); }
 
-/* --- Calculator Modal Styles --- */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 14, 39, 0.7);
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+/* Link wrapper for tool cards */
+.tool-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
-.modal-overlay.visible {
-  opacity: 1;
-  visibility: visible;
-}
-.modal-content {
-  background: var(--bg-secondary);
-  padding: var(--space-xl);
-  border-radius: 16px;
-  width: 90%;
-  max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: var(--shadow-xl);
-  transform: scale(0.95);
-  transition: transform var(--transition-normal);
-}
-.modal-overlay.visible .modal-content {
-  transform: scale(1);
-}
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--bg-tertiary);
-}
-.modal-title {
-  font-family: var(--font-accent);
-  font-size: 1.75rem;
-  font-weight: 700;
-  background: var(--gradient-ai);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.modal-close-btn {
-  background: var(--bg-tertiary);
-  border: none;
-  color: var(--text-secondary);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-.modal-close-btn:hover {
-  background: var(--accent-pink);
-  color: white;
-  transform: rotate(90deg);
-}
+
+/* --- Calculator Page Specific Styles --- */
 .calculator-form .form-group {
   margin-bottom: var(--space-lg);
 }
