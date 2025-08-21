@@ -17,7 +17,7 @@ def run_verification():
         page.wait_for_load_state()
 
         # Expect the title of the new page to be correct
-        expect(page).to_have_title("Age Calculator - Calculator Hub AI")
+        expect(page).to_have_title("Age Calculator - Calculator Loop")
 
         # Expect the H1 of the new page to be correct
         h1 = page.locator('h1.section-title')

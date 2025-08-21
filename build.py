@@ -29,21 +29,38 @@ def main():
             with open(os.path.join('content', filename), 'r') as f:
                 content = f.read()
 
-            # Extract metadata directly from the content's HTML tags
-            title = "Calculator Hub AI" # Default title
-            title_match = re.search(r'<h1 class="section-title.*?>(.*?)</h1>', content, re.DOTALL)
-            if title_match:
-                # Clean up the extracted title (remove tags and extra whitespace)
-                raw_title = title_match.group(1)
-                clean_title = re.sub(r'<.*?>', '', raw_title).strip()
-                clean_title = re.sub(r'\s+', ' ', clean_title)
-                title = f"{clean_title} - Calculator Hub AI"
+            # Default metadata
+            title = "Calculator Loop"
+            description = "A collection of useful online calculators."
 
-            description_match = re.search(r'<p class="section-description.*?>(.*?)</p>', content, re.DOTALL)
-            description = description_match.group(1).strip() if description_match else "A collection of useful calculators."
+            # Extract metadata from comments for special cases like the homepage
+            title_match_comment = re.search(r'<!-- title: (.*?) -->', content)
+            description_match_comment = re.search(r'<!-- description: (.*?) -->', content)
+
+            if title_match_comment:
+                title = title_match_comment.group(1)
+            else:
+                # Extract title from H1 tag for calculator pages
+                title_match_h1 = re.search(r'<h1 class="section-title.*?>(.*?)</h1>', content, re.DOTALL)
+                if title_match_h1:
+                    raw_title = title_match_h1.group(1)
+                    clean_title = re.sub(r'<.*?>', '', raw_title).strip()
+                    clean_title = re.sub(r'\s+', ' ', clean_title)
+                    title = f"{clean_title} - Calculator Loop"
+
+            if description_match_comment:
+                description = description_match_comment.group(1)
+            else:
+                # Extract description from P tag for calculator pages
+                description_match_p = re.search(r'<p class="section-description.*?>(.*?)</p>', content, re.DOTALL)
+                if description_match_p:
+                    description = description_match_p.group(1).strip()
+
+            # Clean the content by removing the metadata comments
+            clean_content = re.sub(r'<!-- .*? -->', '', content).strip()
 
             # Inject the content and metadata
-            final_page = page_template.replace("{{ content }}", content)
+            final_page = page_template.replace("{{ content }}", clean_content)
             final_page = final_page.replace("{{ title }}", title)
             final_page = final_page.replace("{{ description }}", description)
 
