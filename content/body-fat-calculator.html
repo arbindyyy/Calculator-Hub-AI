@@ -2,38 +2,39 @@
     <div class="tools-container">
         <div class="section-header">
             <h1 class="section-title">
-                <span class="gradient-text">Body</span> Fat Calculator
+                <span class="gradient-text">Body Fat</span> Calculator
             </h1>
             <p class="section-description">
-                Estimate your body fat percentage.
+                Estimate your body fat percentage using the U.S. Navy method.
             </p>
         </div>
 
         <div class="calculator-form-container">
             <form class="calculator-form">
-                <div class="form-group"><p>This calculator is being updated. Please check back soon!</p></div>
+                <!-- JS will populate the form inputs here -->
             </form>
             <div class="calculator-result-area">
-                <p class="result-title">Result</p>
-                <p class="result-value" id="resultValue">--</p>
+                <p class="result-title">Estimated Body Fat Percentage</p>
+                <p class="result-value" id="resultValue"></p>
                 <p class="result-interpretation" id="resultInterpretation"></p>
             </div>
         </div>
 
         <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
-            <h2>Understanding the Body Fat Calculator</h2>
-            <p>This section explains the purpose of the Body Fat Calculator and how it can be used in various scenarios. Detailed explanations of the inputs and outputs are provided to help you get the most out of this tool.</p>
+            <h2>The U.S. Navy Method</h2>
+            <p>This calculator uses a method developed by the U.S. Navy to estimate body fat percentage based on simple circumference measurements. It provides a convenient way to track your body composition without the need for special equipment.</p>
+            <p>The formula uses your height, neck, and waist measurements. For women, it also includes the hip measurement to account for differences in body shape and fat distribution.</p>
         </div>
 
         <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
             <h2>Frequently Asked Questions (FAQ)</h2>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>What is the Body Fat Calculator?</h3>
-                <p>The Body Fat Calculator helps you estimate your body fat percentage..</p>
+                <h3>How accurate is this method?</h3>
+                <p>The U.S. Navy method is considered a reasonably accurate estimation for most people. However, it is an estimate. For a precise measurement of body fat, you would need clinical methods like hydrostatic weighing or DEXA scans. This calculator is best used for tracking changes in your body composition over time.</p>
             </div>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>How do I use the Body Fat Calculator?</h3>
-                <p>Simply enter the required values into the form fields. The calculator will automatically update with the result.</p>
+                <h3>Why is body fat percentage important?</h3>
+                <p>Body fat percentage can be a better indicator of health than weight or BMI alone. It distinguishes between fat mass and lean mass (muscles, bones, organs). Having a healthy body fat percentage is associated with a lower risk of various chronic diseases.</p>
             </div>
         </div>
 
@@ -43,17 +44,17 @@
           "@type": "FAQPage",
           "mainEntity": [{
             "@type": "Question",
-            "name": "What is the Body Fat Calculator?",
+            "name": "How accurate is this method?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The Body Fat Calculator helps you estimate your body fat percentage.."
+              "text": "The U.S. Navy method is a reasonably accurate estimation for most people, but it is not as precise as clinical methods like DEXA scans. It is best used for tracking changes over time."
             }
           }, {
             "@type": "Question",
-            "name": "How do I use the Body Fat Calculator?",
+            "name": "Why is body fat percentage important?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Simply enter the required values into the form fields. The calculator will automatically update with the result."
+              "text": "Body fat percentage can be a better indicator of health than weight or BMI alone, as it distinguishes between fat mass and lean mass. A healthy body fat percentage is associated with a lower risk of chronic diseases."
             }
           }]
         }

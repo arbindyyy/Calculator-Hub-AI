@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent Calculator - Calculator Hub AI</title>
-    <meta name="description" content="Calculate rental costs and affordability.">
+    <title>Rent Affordability Calculator - Calculator Hub AI</title>
+    <meta name="description" content="Calculate an affordable rent payment based on your income.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,38 +66,39 @@
     <div class="tools-container">
         <div class="section-header">
             <h1 class="section-title">
-                <span class="gradient-text">Rent</span> Calculator
+                <span class="gradient-text">Rent Affordability</span> Calculator
             </h1>
             <p class="section-description">
-                Calculate rental costs and affordability.
+                Calculate an affordable rent payment based on your income.
             </p>
         </div>
 
         <div class="calculator-form-container">
             <form class="calculator-form">
-                <div class="form-group"><p>This calculator is being updated. Please check back soon!</p></div>
+                <!-- JS will populate the form inputs here -->
             </form>
             <div class="calculator-result-area">
-                <p class="result-title">Result</p>
-                <p class="result-value" id="resultValue">--</p>
+                <p class="result-title">Recommended Maximum Monthly Rent</p>
+                <p class="result-value" id="resultValue"></p>
                 <p class="result-interpretation" id="resultInterpretation"></p>
             </div>
         </div>
 
         <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
-            <h2>Understanding the Rent Calculator</h2>
-            <p>This section explains the purpose of the Rent Calculator and how it can be used in various scenarios. Detailed explanations of the inputs and outputs are provided to help you get the most out of this tool.</p>
+            <h2>The 30% Rule for Rent</h2>
+            <p>A widely used guideline for housing is the 30% rule, which suggests that you should spend no more than 30% of your gross (pre-tax) monthly income on housing costs. This includes rent and, in some interpretations, basic utilities.</p>
+            <p>This calculator uses the 30% rule to give you a baseline for what might be an affordable rent. Exceeding this percentage could strain your budget and make it difficult to cover other expenses and save for your financial goals.</p>
         </div>
 
         <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
             <h2>Frequently Asked Questions (FAQ)</h2>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>What is the Rent Calculator?</h3>
-                <p>The Rent Calculator helps you calculate rental costs and affordability..</p>
+                <h3>Is the 30% rule always accurate?</h3>
+                <p>The 30% rule is a general guideline and may not be perfect for everyone. In high-cost-of-living areas, it might be necessary to spend more. Conversely, if you have significant debt, you might want to spend less. It's a starting point, and you should adjust it based on your personal budget and financial situation.</p>
             </div>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>How do I use the Rent Calculator?</h3>
-                <p>Simply enter the required values into the form fields. The calculator will automatically update with the result.</p>
+                <h3>What other costs should I budget for besides rent?</h3>
+                <p>When renting, you should also budget for utilities (electricity, gas, water, internet), renter's insurance, moving costs, and potential application fees or security deposits. These costs are not included in this calculator's estimate.</p>
             </div>
         </div>
 
@@ -107,17 +108,17 @@
           "@type": "FAQPage",
           "mainEntity": [{
             "@type": "Question",
-            "name": "What is the Rent Calculator?",
+            "name": "Is the 30% rule always accurate?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The Rent Calculator helps you calculate rental costs and affordability.."
+              "text": "The 30% rule is a general guideline and may not be perfect for everyone. In high-cost-of-living areas, it might be necessary to spend more. Conversely, if you have significant debt, you might want to spend less. It's a starting point to be adjusted for your personal budget."
             }
           }, {
             "@type": "Question",
-            "name": "How do I use the Rent Calculator?",
+            "name": "What other costs should I budget for besides rent?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Simply enter the required values into the form fields. The calculator will automatically update with the result."
+              "text": "When renting, you should also budget for utilities (electricity, gas, water, internet), renter's insurance, moving costs, and potential application fees or security deposits."
             }
           }]
         }

@@ -97,72 +97,477 @@ const toolsData = {
 const calculatorImplementations = {
     'mortgage-calculator': {
         getHTML: () => `
-            <form class="calculator-form">
-                <div class="form-group">
-                    <label for="loanAmount">Loan Amount ($)</label>
-                    <input type="number" id="loanAmount" value="300000" placeholder="e.g., 300000">
-                </div>
-                <div class="form-group">
-                    <label for="interestRate">Interest Rate (%)</label>
-                    <input type="number" id="interestRate" value="6.5" step="0.01" placeholder="e.g., 6.5">
-                </div>
-                <div class="form-group">
-                    <label for="loanTerm">Loan Term (years)</label>
-                    <input type="number" id="loanTerm" value="30" placeholder="e.g., 30">
-                </div>
-                <div class="calculator-result-area">
-                    <p class="result-title">Monthly Payment</p>
-                    <p class="result-value" id="resultValue">$0.00</p>
-                    <p class="result-interpretation" id="resultInterpretation"></p>
-                </div>
-            </form>
+            <div class="form-group">
+                <label for="loanAmount">Loan Amount ($)</label>
+                <input type="number" id="loanAmount" value="300000" placeholder="e.g., 300000">
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" id="interestRate" value="6.5" step="0.01" placeholder="e.g., 6.5">
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Loan Term (years)</label>
+                <input type="number" id="loanTerm" value="30" placeholder="e.g., 30">
+            </div>
         `,
-        attachEventListeners: (modal) => {
-            const form = modal.querySelector('form');
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
             const calculate = () => {
-                const P = parseFloat(modal.querySelector('#loanAmount').value);
-                const annualRate = parseFloat(modal.querySelector('#interestRate').value);
-                const termYears = parseFloat(modal.querySelector('#loanTerm').value);
+                const P = parseFloat(container.querySelector('#loanAmount').value);
+                const annualRate = parseFloat(container.querySelector('#interestRate').value);
+                const termYears = parseFloat(container.querySelector('#loanTerm').value);
 
                 if (P > 0 && annualRate > 0 && termYears > 0) {
                     const i = annualRate / 100 / 12;
                     const n = termYears * 12;
                     const M = P * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
 
-                    modal.querySelector('#resultValue').textContent = M.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-                    modal.querySelector('#resultInterpretation').textContent = '';
+                    container.querySelector('#resultValue').textContent = M.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                    container.querySelector('#resultInterpretation').textContent = 'This is your estimated monthly payment.';
                 } else {
-                    modal.querySelector('#resultValue').textContent = '$0.00';
-                    modal.querySelector('#resultInterpretation').textContent = 'Please enter valid loan details.';
+                    container.querySelector('#resultValue').textContent = '$0.00';
+                    container.querySelector('#resultInterpretation').textContent = 'Please enter valid loan details.';
                 }
             };
             form.addEventListener('input', calculate);
             calculate(); // Initial calculation
         }
     },
+    'amortization-calculator': {
+        getHTML: () => `
+            <div class="form-group">
+                <label for="loanAmount">Loan Amount ($)</label>
+                <input type="number" id="loanAmount" value="100000" placeholder="e.g., 100000">
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" id="interestRate" value="7" step="0.01" placeholder="e.g., 7">
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Loan Term (years)</label>
+                <input type="number" id="loanTerm" value="10" placeholder="e.g., 10">
+            </div>
+        `,
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const resultValueEl = container.querySelector('#resultValue');
+            const resultInterpretationEl = container.querySelector('#resultInterpretation');
+
+            const formatCurrency = (num) => num.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+            const calculate = () => {
+                const P = parseFloat(container.querySelector('#loanAmount').value);
+                const annualRate = parseFloat(container.querySelector('#interestRate').value);
+                const termYears = parseFloat(container.querySelector('#loanTerm').value);
+
+                if (P > 0 && annualRate > 0 && termYears > 0) {
+                    const i = annualRate / 100 / 12; // Monthly interest rate
+                    const n = termYears * 12; // Total number of payments
+
+                    const M = P * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+
+                    let balance = P;
+                    let totalInterest = 0;
+                    let schedule = '';
+
+                    for (let month = 1; month <= n; month++) {
+                        const interestForMonth = balance * i;
+                        const principalForMonth = M - interestForMonth;
+                        totalInterest += interestForMonth;
+                        balance -= principalForMonth;
+
+                        schedule += `
+                            <tr>
+                                <td>${month}</td>
+                                <td>${formatCurrency(M)}</td>
+                                <td>${formatCurrency(principalForMonth)}</td>
+                                <td>${formatCurrency(interestForMonth)}</td>
+                                <td>${formatCurrency(balance > 0 ? balance : 0)}</td>
+                            </tr>
+                        `;
+                    }
+
+                    resultValueEl.innerHTML = `
+                        <div class="amortization-table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Payment</th>
+                                        <th>Principal</th>
+                                        <th>Interest</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${schedule}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                    resultInterpretationEl.innerHTML = `
+                        <strong>Monthly Payment: ${formatCurrency(M)}</strong><br>
+                        Total Interest Paid over ${termYears} years: <strong>${formatCurrency(totalInterest)}</strong>
+                    `;
+
+                } else {
+                    resultValueEl.innerHTML = '<p>Enter valid loan details to view the schedule.</p>';
+                    resultInterpretationEl.innerHTML = '';
+                }
+            };
+
+            form.addEventListener('input', calculate);
+            calculate(); // Initial calculation
+        }
+    },
+    'mortgage-payoff-calculator': {
+        getHTML: () => `
+            <div class="form-group">
+                <label for="loanAmount">Original Loan Amount ($)</label>
+                <input type="number" id="loanAmount" value="300000" placeholder="e.g., 300000">
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" id="interestRate" value="6.5" step="0.01" placeholder="e.g., 6.5">
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Original Loan Term (years)</label>
+                <input type="number" id="loanTerm" value="30" placeholder="e.g., 30">
+            </div>
+            <div class="form-group">
+                <label for="extraPayment">Extra Monthly Payment ($)</label>
+                <input type="number" id="extraPayment" value="200" placeholder="e.g., 200">
+            </div>
+        `,
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const resultValueEl = container.querySelector('#resultValue');
+            const resultInterpretationEl = container.querySelector('#resultInterpretation');
+
+            const formatCurrency = (num) => num.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            const formatYearsMonths = (months) => {
+                const years = Math.floor(months / 12);
+                const remainingMonths = months % 12;
+                return `${years} years, ${remainingMonths} months`;
+            };
+
+            const calculate = () => {
+                const P = parseFloat(container.querySelector('#loanAmount').value);
+                const annualRate = parseFloat(container.querySelector('#interestRate').value);
+                const termYears = parseFloat(container.querySelector('#loanTerm').value);
+                const extraPayment = parseFloat(container.querySelector('#extraPayment').value) || 0;
+
+                if (P > 0 && annualRate > 0 && termYears > 0) {
+                    const i = annualRate / 100 / 12;
+                    const n_orig = termYears * 12;
+
+                    const M_orig = P * (i * Math.pow(1 + i, n_orig)) / (Math.pow(1 + i, n_orig) - 1);
+                    const totalInterest_orig = (M_orig * n_orig) - P;
+
+                    const M_new = M_orig + extraPayment;
+                    let balance = P;
+                    let months_new = 0;
+                    let totalInterest_new = 0;
+                    while (balance > 0 && months_new < n_orig) {
+                        const interestForMonth = balance * i;
+                        const principalForMonth = M_new - interestForMonth;
+                        balance -= principalForMonth;
+                        totalInterest_new += interestForMonth;
+                        months_new++;
+                    }
+                    if(balance < 0) {
+                        totalInterest_new += balance;
+                    }
+
+                    const yearsSaved = termYears - (months_new / 12);
+                    const interestSaved = totalInterest_orig - totalInterest_new;
+
+                    resultValueEl.innerHTML = `You will pay off your loan in <strong>${formatYearsMonths(months_new)}</strong>.`;
+                    resultInterpretationEl.innerHTML = `
+                        By paying an extra <strong>${formatCurrency(extraPayment)}</strong> per month, you could save
+                        <strong>${formatCurrency(interestSaved)}</strong> in interest and pay off your loan
+                        <strong>${yearsSaved.toFixed(1)} years</strong> sooner.
+                    `;
+                } else {
+                    resultValueEl.textContent = 'Enter valid loan details.';
+                    resultInterpretationEl.textContent = '';
+                }
+            };
+
+            form.addEventListener('input', calculate);
+            calculate();
+        }
+    },
+    'house-affordability-calculator': {
+        getHTML: () => `
+            <div class="form-group">
+                <label for="annualIncome">Annual Gross Income ($)</label>
+                <input type="number" id="annualIncome" value="80000" placeholder="e.g., 80000">
+            </div>
+            <div class="form-group">
+                <label for="monthlyDebts">Monthly Debts ($)</label>
+                <input type="number" id="monthlyDebts" value="500" placeholder="e.g., car payment, student loans">
+            </div>
+            <div class="form-group">
+                <label for="downPayment">Down Payment ($)</label>
+                <input type="number" id="downPayment" value="20000" placeholder="e.g., 20000">
+            </div>
+            <div class="form-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" id="interestRate" value="6.5" step="0.01" placeholder="e.g., 6.5">
+            </div>
+            <div class="form-group">
+                <label for="loanTerm">Loan Term (years)</label>
+                <input type="number" id="loanTerm" value="30" placeholder="e.g., 30">
+            </div>
+            <div class="form-group">
+                <label for="propertyTax">Annual Property Tax (%)</label>
+                <input type="number" id="propertyTax" value="1.2" step="0.01" placeholder="e.g., 1.2">
+            </div>
+            <div class="form-group">
+                <label for="homeInsurance">Annual Home Insurance ($)</label>
+                <input type="number" id="homeInsurance" value="1500" placeholder="e.g., 1500">
+            </div>
+        `,
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const resultValueEl = container.querySelector('#resultValue');
+            const resultInterpretationEl = container.querySelector('#resultInterpretation');
+
+            const formatCurrency = (num) => num.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+            const calculate = () => {
+                const annualIncome = parseFloat(container.querySelector('#annualIncome').value);
+                const monthlyDebts = parseFloat(container.querySelector('#monthlyDebts').value) || 0;
+                const downPayment = parseFloat(container.querySelector('#downPayment').value) || 0;
+                const annualRate = parseFloat(container.querySelector('#interestRate').value);
+                const termYears = parseFloat(container.querySelector('#loanTerm').value);
+                const propertyTaxRate = parseFloat(container.querySelector('#propertyTax').value) / 100;
+                const annualInsurance = parseFloat(container.querySelector('#homeInsurance').value);
+
+                if (annualIncome > 0 && annualRate > 0 && termYears > 0) {
+                    const monthlyIncome = annualIncome / 12;
+                    const i = annualRate / 100 / 12;
+                    const n = termYears * 12;
+
+                    const maxTotalDebt = monthlyIncome * 0.36;
+                    const maxMonthlyPayment = maxTotalDebt - monthlyDebts;
+
+                    let affordableHomePrice = 0;
+
+                    let oldPrice = 0;
+                    let newPrice = (maxMonthlyPayment * n) / 2;
+
+                    for(let j=0; j<10; j++) {
+                        if(Math.abs(oldPrice - newPrice) < 1000) break;
+                        oldPrice = newPrice;
+
+                        const monthlyTax = (oldPrice * propertyTaxRate) / 12;
+                        const monthlyInsurance = annualInsurance / 12;
+
+                        const maxPrincipalAndInterest = maxMonthlyPayment - monthlyTax - monthlyInsurance;
+
+                        if(maxPrincipalAndInterest <= 0) {
+                            newPrice = 0;
+                            break;
+                        }
+
+                        const maxLoanAmount = maxPrincipalAndInterest * ( (Math.pow(1 + i, n) - 1) / (i * Math.pow(1 + i, n)) );
+                        newPrice = maxLoanAmount + downPayment;
+                    }
+                    affordableHomePrice = newPrice;
+
+                    if (affordableHomePrice > 0) {
+                        resultValueEl.textContent = formatCurrency(affordableHomePrice);
+                        resultInterpretationEl.innerHTML = `
+                            Based on a <strong>36%</strong> debt-to-income ratio, you can afford a home around this price.
+                            <br>Your estimated monthly payment would be ~<strong>${formatCurrency(maxMonthlyPayment)}</strong>.
+                        `;
+                    } else {
+                        resultValueEl.textContent = formatCurrency(0);
+                        resultInterpretationEl.textContent = "Your monthly debts may be too high to afford a home with this income.";
+                    }
+
+                } else {
+                    resultValueEl.textContent = 'Enter valid details.';
+                    resultInterpretationEl.textContent = '';
+                }
+            };
+
+            form.addEventListener('input', calculate);
+            calculate();
+        }
+    },
     'bmi-calculator': {
         getHTML: () => `
-            <form class="calculator-form">
-                <div class="form-group">
-                    <label for="height">Height (cm)</label>
-                    <input type="number" id="height" value="175" placeholder="e.g., 175">
-                </div>
-                <div class="form-group">
-                    <label for="weight">Weight (kg)</label>
-                    <input type="number" id="weight" value="70" placeholder="e.g., 70">
-                </div>
-                <div class="calculator-result-area">
-                    <p class="result-title">Your BMI</p>
-                    <p class="result-value" id="resultValue">--</p>
-                    <p class="result-interpretation" id="resultInterpretation"></p>
-                </div>
-            </form>
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" value="175" placeholder="e.g., 175">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" value="70" placeholder="e.g., 70">
+            </div>
         `,
-        attachEventListeners: (modal) => {
-            const form = modal.querySelector('form');
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const resultValueEl = container.querySelector('#resultValue');
+            const resultInterpretationEl = container.querySelector('#resultInterpretation');
+
+            const formatCurrency = (num) => num.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            const formatYearsMonths = (months) => {
+                const years = Math.floor(months / 12);
+                const remainingMonths = months % 12;
+                return `${years} years, ${remainingMonths} months`;
+            };
+
             const calculate = () => {
-                const heightCm = parseFloat(modal.querySelector('#height').value);
-                const weightKg = parseFloat(modal.querySelector('#weight').value);
+                const P = parseFloat(container.querySelector('#loanAmount').value);
+                const annualRate = parseFloat(container.querySelector('#interestRate').value);
+                const termYears = parseFloat(container.querySelector('#loanTerm').value);
+                const extraPayment = parseFloat(container.querySelector('#extraPayment').value) || 0;
+
+                if (P > 0 && annualRate > 0 && termYears > 0) {
+                    const i = annualRate / 100 / 12;
+                    const n_orig = termYears * 12;
+
+                    const M_orig = P * (i * Math.pow(1 + i, n_orig)) / (Math.pow(1 + i, n_orig) - 1);
+                    const totalInterest_orig = (M_orig * n_orig) - P;
+
+                    const M_new = M_orig + extraPayment;
+                    let balance = P;
+                    let months_new = 0;
+                    let totalInterest_new = 0;
+                    while (balance > 0 && months_new < n_orig) {
+                        const interestForMonth = balance * i;
+                        const principalForMonth = M_new - interestForMonth;
+                        balance -= principalForMonth;
+                        totalInterest_new += interestForMonth;
+                        months_new++;
+                    }
+                    // Adjust for the final payment which might be smaller
+                    if(balance < 0) {
+                        totalInterest_new += balance; // Subtract overpayment from interest
+                    }
+
+                    const yearsSaved = termYears - (months_new / 12);
+                    const interestSaved = totalInterest_orig - totalInterest_new;
+
+                    resultValueEl.innerHTML = `You will pay off your loan in <strong>${formatYearsMonths(months_new)}</strong>.`;
+                    resultInterpretationEl.innerHTML = `
+                        By paying an extra <strong>${formatCurrency(extraPayment)}</strong> per month, you could save
+                        <strong>${formatCurrency(interestSaved)}</strong> in interest and pay off your loan
+                        <strong>${yearsSaved.toFixed(1)} years</strong> sooner.
+                    `;
+                } else {
+                    resultValueEl.textContent = 'Enter valid loan details.';
+                    resultInterpretationEl.textContent = '';
+                }
+            };
+
+            form.addEventListener('input', calculate);
+            calculate();
+        }
+    },
+    'bmi-calculator': {
+        getHTML: () => `
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" value="175" placeholder="e.g., 175">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" value="70" placeholder="e.g., 70">
+            </div>
+        `,
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const resultValueEl = container.querySelector('#resultValue');
+            const resultInterpretationEl = container.querySelector('#resultInterpretation');
+
+            const formatCurrency = (num) => num.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+            const calculate = () => {
+                const P = parseFloat(container.querySelector('#loanAmount').value);
+                const annualRate = parseFloat(container.querySelector('#interestRate').value);
+                const termYears = parseFloat(container.querySelector('#loanTerm').value);
+
+                if (P > 0 && annualRate > 0 && termYears > 0) {
+                    const i = annualRate / 100 / 12; // Monthly interest rate
+                    const n = termYears * 12; // Total number of payments
+
+                    const M = P * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
+
+                    let balance = P;
+                    let totalInterest = 0;
+                    let schedule = '';
+
+                    for (let month = 1; month <= n; month++) {
+                        const interestForMonth = balance * i;
+                        const principalForMonth = M - interestForMonth;
+                        totalInterest += interestForMonth;
+                        balance -= principalForMonth;
+
+                        schedule += `
+                            <tr>
+                                <td>${month}</td>
+                                <td>${formatCurrency(M)}</td>
+                                <td>${formatCurrency(principalForMonth)}</td>
+                                <td>${formatCurrency(interestForMonth)}</td>
+                                <td>${formatCurrency(balance > 0 ? balance : 0)}</td>
+                            </tr>
+                        `;
+                    }
+
+                    resultValueEl.innerHTML = `
+                        <div class="amortization-table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Payment</th>
+                                        <th>Principal</th>
+                                        <th>Interest</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${schedule}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                    resultInterpretationEl.innerHTML = `
+                        <strong>Monthly Payment: ${formatCurrency(M)}</strong><br>
+                        Total Interest Paid over ${termYears} years: <strong>${formatCurrency(totalInterest)}</strong>
+                    `;
+
+                } else {
+                    resultValueEl.innerHTML = '<p>Enter valid loan details to view the schedule.</p>';
+                    resultInterpretationEl.innerHTML = '';
+                }
+            };
+
+            form.addEventListener('input', calculate);
+            calculate(); // Initial calculation
+        }
+    },
+    'bmi-calculator': {
+        getHTML: () => `
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" id="height" value="175" placeholder="e.g., 175">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" value="70" placeholder="e.g., 70">
+            </div>
+        `,
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const calculate = () => {
+                const heightCm = parseFloat(container.querySelector('#height').value);
+                const weightKg = parseFloat(container.querySelector('#weight').value);
 
                 if (heightCm > 0 && weightKg > 0) {
                     const heightM = heightCm / 100;
@@ -174,11 +579,11 @@ const calculatorImplementations = {
                     else if (bmi < 30) interpretation += 'Overweight range.';
                     else interpretation += 'Obesity range.';
 
-                    modal.querySelector('#resultValue').textContent = bmi.toFixed(1);
-                    modal.querySelector('#resultInterpretation').textContent = interpretation + ' This is an estimate, consult a healthcare professional for advice.';
+                    container.querySelector('#resultValue').textContent = bmi.toFixed(1);
+                    container.querySelector('#resultInterpretation').textContent = interpretation + ' This is an estimate, consult a healthcare professional for advice.';
                 } else {
-                    modal.querySelector('#resultValue').textContent = '--';
-                    modal.querySelector('#resultInterpretation').textContent = 'Please enter a valid height and weight.';
+                    container.querySelector('#resultValue').textContent = '--';
+                    container.querySelector('#resultInterpretation').textContent = 'Please enter a valid height and weight.';
                 }
             };
             form.addEventListener('input', calculate);
@@ -187,21 +592,14 @@ const calculatorImplementations = {
     },
     'age-calculator': {
         getHTML: () => `
-            <form class="calculator-form">
-                <div class="form-group">
-                    <label for="birthDate">Enter Your Date of Birth</label>
-                    <input type="date" id="birthDate">
-                </div>
-                <div class="calculator-result-area">
-                    <p class="result-title">Your Age Is</p>
-                    <p class="result-value" id="resultValue">--</p>
-                    <p class="result-interpretation" id="resultInterpretation">Enter a date to see your age.</p>
-                </div>
-            </form>
+            <div class="form-group">
+                <label for="birthDate">Enter Your Date of Birth</label>
+                <input type="date" id="birthDate">
+            </div>
         `,
-        attachEventListeners: (modal) => {
-            const form = modal.querySelector('form');
-            const birthDateInput = modal.querySelector('#birthDate');
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const birthDateInput = container.querySelector('#birthDate');
 
             const today = new Date();
             const formattedToday = today.toISOString().split('T')[0];
@@ -226,11 +624,11 @@ const calculatorImplementations = {
                 }
 
                 if (years >= 0) {
-                    modal.querySelector('#resultValue').textContent = `${years}y ${months}m ${days}d`;
-                    modal.querySelector('#resultInterpretation').textContent = `Calculated as of ${today.toLocaleDateString()}`;
+                    container.querySelector('#resultValue').textContent = `${years}y ${months}m ${days}d`;
+                    container.querySelector('#resultInterpretation').textContent = `Calculated as of ${today.toLocaleDateString()}`;
                 } else {
-                    modal.querySelector('#resultValue').textContent = '--';
-                    modal.querySelector('#resultInterpretation').textContent = 'Birth date cannot be in the future.';
+                    container.querySelector('#resultValue').textContent = '--';
+                    container.querySelector('#resultInterpretation').textContent = 'Birth date cannot be in the future.';
                 }
             };
             form.addEventListener('input', calculate);
@@ -239,32 +637,26 @@ const calculatorImplementations = {
     },
     'percentage-calculator': {
          getHTML: () => `
-            <form class="calculator-form">
-                <div class="form-group">
-                     <select id="calcMode">
-                        <option value="p_of_n">What is X % of Y?</option>
-                        <option value="n_is_p_of">X is what % of Y?</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="val1" id="label1">Percentage (X)</label>
-                    <input type="number" id="val1" placeholder="e.g., 15">
-                </div>
-                <div class="form-group">
-                    <label for="val2" id="label2">Total Number (Y)</label>
-                    <input type="number" id="val2" placeholder="e.g., 200">
-                </div>
-                <div class="calculator-result-area">
-                    <p class="result-title">Result</p>
-                    <p class="result-value" id="resultValue">--</p>
-                </div>
-            </form>
+            <div class="form-group">
+                 <select id="calcMode">
+                    <option value="p_of_n">What is X % of Y?</option>
+                    <option value="n_is_p_of">X is what % of Y?</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="val1" id="label1">Percentage (X)</label>
+                <input type="number" id="val1" placeholder="e.g., 15">
+            </div>
+            <div class="form-group">
+                <label for="val2" id="label2">Total Number (Y)</label>
+                <input type="number" id="val2" placeholder="e.g., 200">
+            </div>
         `,
-        attachEventListeners: (modal) => {
-            const form = modal.querySelector('form');
-            const modeSelect = modal.querySelector('#calcMode');
-            const label1 = modal.querySelector('#label1');
-            const label2 = modal.querySelector('#label2');
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const modeSelect = container.querySelector('#calcMode');
+            const label1 = container.querySelector('#label1');
+            const label2 = container.querySelector('#label2');
 
             const updateLabels = () => {
                 if (modeSelect.value === 'p_of_n') {
@@ -277,8 +669,8 @@ const calculatorImplementations = {
             };
 
             const calculate = () => {
-                const val1 = parseFloat(modal.querySelector('#val1').value);
-                const val2 = parseFloat(modal.querySelector('#val2').value);
+                const val1 = parseFloat(container.querySelector('#val1').value);
+                const val2 = parseFloat(container.querySelector('#val2').value);
                 let result = '--';
 
                 if (!isNaN(val1) && !isNaN(val2)) {
@@ -290,7 +682,7 @@ const calculatorImplementations = {
                         result = 'Error';
                     }
                 }
-                modal.querySelector('#resultValue').textContent = result;
+                container.querySelector('#resultValue').textContent = result;
             };
 
             modeSelect.addEventListener('change', () => {
@@ -300,7 +692,65 @@ const calculatorImplementations = {
             form.addEventListener('input', calculate);
             updateLabels();
         }
-    }
+    },
+    'date-calculator': {
+        getHTML: () => `
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="form-group" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                <select id="addSubtract" style="width: 80px;">
+                    <option value="add">Add</option>
+                    <option value="subtract">Subtract</option>
+                </select>
+                <input type="number" id="years" placeholder="Years" style="flex-grow: 1; min-width: 60px;">
+                <input type="number" id="months" placeholder="Months" style="flex-grow: 1; min-width: 60px;">
+                <input type="number" id="weeks" placeholder="Weeks" style="flex-grow: 1; min-width: 60px;">
+                <input type="number" id="days" placeholder="Days" style="flex-grow: 1; min-width: 60px;">
+            </div>
+        `,
+        attachEventListeners: (container) => {
+            const form = container.querySelector('.calculator-form');
+            const resultValueEl = container.querySelector('#resultValue');
+            const resultInterpretationEl = container.querySelector('#resultInterpretation');
+            const startDateInput = container.querySelector('#startDate');
+
+            startDateInput.valueAsDate = new Date();
+
+            const calculate = () => {
+                const startDate = new Date(startDateInput.value + 'T00:00:00'); // Avoid timezone issues
+                const addSubtract = container.querySelector('#addSubtract').value;
+                const years = parseInt(container.querySelector('#years').value) || 0;
+                const months = parseInt(container.querySelector('#months').value) || 0;
+                const weeks = parseInt(container.querySelector('#weeks').value) || 0;
+                const days = parseInt(container.querySelector('#days').value) || 0;
+
+                if (!startDateInput.value) {
+                    resultValueEl.textContent = '---';
+                    resultInterpretationEl.textContent = 'Please select a start date.';
+                    return;
+                }
+
+                const sign = addSubtract === 'add' ? 1 : -1;
+
+                const resultDate = new Date(startDate.getTime());
+                resultDate.setFullYear(resultDate.getFullYear() + (sign * years));
+                resultDate.setMonth(resultDate.getMonth() + (sign * months));
+                resultDate.setDate(resultDate.getDate() + (sign * (weeks * 7 + days)));
+
+                resultValueEl.textContent = resultDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                resultInterpretationEl.textContent = '';
+            };
+
+            form.addEventListener('input', calculate);
+            calculate();
+        }
+    },
 };
 
 
@@ -398,11 +848,36 @@ languageSwitcher.addEventListener('change', function() {
     updateLanguageTexts();
 });
 document.addEventListener('DOMContentLoaded', function() {
+    // General initializations for all pages
     initializeTheme();
     initializeEventListeners();
-    renderTools();
     createScrollToTopButton();
     updateLanguageTexts();
+
+    // --- Page-Specific Initializations ---
+
+    // If we are on the homepage, render the tool grid
+    const toolsGrid = document.getElementById('toolsGrid');
+    if (toolsGrid) {
+        renderTools();
+    }
+
+    // If we are on a calculator page, initialize its specific logic
+    const calculatorSection = document.querySelector('.calculator-page-section');
+    if (calculatorSection) {
+        const calculatorId = calculatorSection.id;
+        const implementation = calculatorImplementations[calculatorId];
+
+        if (implementation) {
+            const formContainer = calculatorSection.querySelector('.calculator-form-container');
+            if (formContainer) {
+                // The getHTML function should return the inner fields of the form
+                formContainer.querySelector('.calculator-form').innerHTML = implementation.getHTML();
+                // Attach event listeners, passing the container to find all necessary elements
+                implementation.attachEventListeners(formContainer);
+            }
+        }
+    }
 });
 
 function initializeTheme() {

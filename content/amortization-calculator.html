@@ -5,35 +5,38 @@
                 <span class="gradient-text">Amortization</span> Calculator
             </h1>
             <p class="section-description">
-                See how your loan payment is split between principal and interest.
+                See how your loan payment is split between principal and interest over time.
             </p>
         </div>
 
         <div class="calculator-form-container">
             <form class="calculator-form">
-                <div class="form-group"><p>This calculator is being updated. Please check back soon!</p></div>
+                <!-- The JS will populate the form inputs here -->
             </form>
             <div class="calculator-result-area">
-                <p class="result-title">Result</p>
-                <p class="result-value" id="resultValue">--</p>
-                <p class="result-interpretation" id="resultInterpretation"></p>
+                <p class="result-title">Amortization Schedule</p>
+                <div id="resultValue" class="result-value">
+                    <!-- The JS will populate the amortization table here -->
+                </div>
+                <p class="result-interpretation" id="resultInterpretation" style="margin-top: var(--space-lg); text-align: right; font-weight: 600;"></p>
             </div>
         </div>
 
         <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
-            <h2>Understanding the Amortization Calculator</h2>
-            <p>This section explains the purpose of the Amortization Calculator and how it can be used in various scenarios. Detailed explanations of the inputs and outputs are provided to help you get the most out of this tool.</p>
+            <h2>Understanding Loan Amortization</h2>
+            <p>Amortization refers to the process of paying off a debt over time in regular installments. For a loan, each payment you make consists of two parts: principal and interest. At the beginning of the loan, a larger portion of your payment goes toward interest. As you continue to make payments, more of each payment goes toward reducing the principal balance.</p>
+            <p>This calculator generates a detailed amortization schedule, which is a table that shows a breakdown of each payment you will make over the life of the loan. It helps you visualize how your debt is being paid down.</p>
         </div>
 
         <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
             <h2>Frequently Asked Questions (FAQ)</h2>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>What is the Amortization Calculator?</h3>
-                <p>The Amortization Calculator helps you see how your loan payment is split between principal and interest..</p>
+                <h3>What is the difference between principal and interest?</h3>
+                <p><strong>Principal</strong> is the amount of money you originally borrowed from the lender. <strong>Interest</strong> is the cost of borrowing that money, essentially a fee paid to the lender. Your goal is to pay back the principal, and your payments include interest as the lender's profit.</p>
             </div>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>How do I use the Amortization Calculator?</h3>
-                <p>Simply enter the required values into the form fields. The calculator will automatically update with the result.</p>
+                <h3>Why does the interest portion of my payment decrease over time?</h3>
+                <p>Interest is calculated based on your outstanding loan balance. As you make payments and reduce your principal balance, the amount of interest charged each month also decreases. Since your total monthly payment is fixed, a smaller interest portion means a larger principal portion, which accelerates your debt repayment over time.</p>
             </div>
         </div>
 
@@ -43,17 +46,17 @@
           "@type": "FAQPage",
           "mainEntity": [{
             "@type": "Question",
-            "name": "What is the Amortization Calculator?",
+            "name": "What is the difference between principal and interest?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The Amortization Calculator helps you see how your loan payment is split between principal and interest.."
+              "text": "Principal is the amount of money you originally borrowed from the lender. Interest is the cost of borrowing that money. Your goal is to pay back the principal, and your payments include interest as the lender's profit."
             }
           }, {
             "@type": "Question",
-            "name": "How do I use the Amortization Calculator?",
+            "name": "Why does the interest portion of my payment decrease over time?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Simply enter the required values into the form fields. The calculator will automatically update with the result."
+              "text": "Interest is calculated based on your outstanding loan balance. As you make payments and reduce your principal balance, the amount of interest charged each month also decreases. Since your total monthly payment is fixed, a smaller interest portion means a larger principal portion."
             }
           }]
         }

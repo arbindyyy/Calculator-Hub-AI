@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Calculator - Calculator Hub AI</title>
-    <meta name="description" content="Add or subtract days from a date.">
+    <meta name="description" content="Add or subtract a duration from a specific date.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,35 +69,36 @@
                 <span class="gradient-text">Date</span> Calculator
             </h1>
             <p class="section-description">
-                Add or subtract days from a date.
+                Add or subtract a duration from a specific date.
             </p>
         </div>
 
         <div class="calculator-form-container">
             <form class="calculator-form">
-                <div class="form-group"><p>This calculator is being updated. Please check back soon!</p></div>
+                <!-- JS will populate the form inputs here -->
             </form>
             <div class="calculator-result-area">
-                <p class="result-title">Result</p>
-                <p class="result-value" id="resultValue">--</p>
+                <p class="result-title">Resulting Date</p>
+                <p class="result-value" id="resultValue"></p>
                 <p class="result-interpretation" id="resultInterpretation"></p>
             </div>
         </div>
 
         <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
-            <h2>Understanding the Date Calculator</h2>
-            <p>This section explains the purpose of the Date Calculator and how it can be used in various scenarios. Detailed explanations of the inputs and outputs are provided to help you get the most out of this tool.</p>
+            <h2>How to Use the Date Calculator</h2>
+            <p>This tool helps you calculate a future or past date by adding or subtracting a specific duration. Simply enter a start date, then input the number of years, months, weeks, or days you wish to add or subtract. The calculator will instantly show you the resulting date.</p>
+            <p>This is useful for planning events, tracking deadlines, or calculating historical dates without having to manually count days on a calendar.</p>
         </div>
 
         <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
             <h2>Frequently Asked Questions (FAQ)</h2>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>What is the Date Calculator?</h3>
-                <p>The Date Calculator helps you add or subtract days from a date..</p>
+                <h3>How does the calculator handle leap years?</h3>
+                <p>The calculator's logic is based on JavaScript's built-in Date object, which automatically accounts for leap years when adding or subtracting days and years. You don't need to worry about the extra day in February during a leap year.</p>
             </div>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>How do I use the Date Calculator?</h3>
-                <p>Simply enter the required values into the form fields. The calculator will automatically update with the result.</p>
+                <h3>What if I add months and it results in a day that doesn't exist?</h3>
+                <p>The Date object handles this gracefully. For example, if you add 1 month to January 31st, the result will be March 3rd (or March 2nd in a leap year), not February 31st. It correctly rolls over to the next month.</p>
             </div>
         </div>
 
@@ -107,17 +108,17 @@
           "@type": "FAQPage",
           "mainEntity": [{
             "@type": "Question",
-            "name": "What is the Date Calculator?",
+            "name": "How does the calculator handle leap years?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The Date Calculator helps you add or subtract days from a date.."
+              "text": "The calculator's logic automatically accounts for leap years when adding or subtracting durations."
             }
           }, {
             "@type": "Question",
-            "name": "How do I use the Date Calculator?",
+            "name": "What if I add months and it results in a day that doesn't exist?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Simply enter the required values into the form fields. The calculator will automatically update with the result."
+              "text": "The calculator handles this correctly. For example, adding 1 month to January 31st will result in a valid date in March, not an invalid date in February."
             }
           }]
         }

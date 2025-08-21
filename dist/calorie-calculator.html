@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calorie Calculator - Calculator Hub AI</title>
-    <meta name="description" content="Estimate your daily calorie needs.">
+    <title>Daily Calorie Calculator - Calculator Hub AI</title>
+    <meta name="description" content="Estimate your daily calorie needs to maintain, lose, or gain weight.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,38 +66,39 @@
     <div class="tools-container">
         <div class="section-header">
             <h1 class="section-title">
-                <span class="gradient-text">Calorie</span> Calculator
+                <span class="gradient-text">Daily Calorie</span> Calculator
             </h1>
             <p class="section-description">
-                Estimate your daily calorie needs.
+                Estimate your daily calorie needs to maintain, lose, or gain weight.
             </p>
         </div>
 
         <div class="calculator-form-container">
             <form class="calculator-form">
-                <div class="form-group"><p>This calculator is being updated. Please check back soon!</p></div>
+                <!-- JS will populate the form inputs here -->
             </form>
             <div class="calculator-result-area">
-                <p class="result-title">Result</p>
-                <p class="result-value" id="resultValue">--</p>
+                <p class="result-title">Estimated Daily Calorie Needs</p>
+                <p class="result-value" id="resultValue"></p>
                 <p class="result-interpretation" id="resultInterpretation"></p>
             </div>
         </div>
 
         <div class="content-section" style="margin-top: var(--space-2xl); text-align: left;">
-            <h2>Understanding the Calorie Calculator</h2>
-            <p>This section explains the purpose of the Calorie Calculator and how it can be used in various scenarios. Detailed explanations of the inputs and outputs are provided to help you get the most out of this tool.</p>
+            <h2>How Your Calorie Needs Are Calculated</h2>
+            <p>This calculator uses the Mifflin-St Jeor equation, a widely accepted formula, to estimate your Basal Metabolic Rate (BMR). Your BMR is the number of calories your body needs to perform basic, life-sustaining functions at rest.</p>
+            <p>It then multiplies your BMR by an activity factor to determine your Total Daily Energy Expenditure (TDEE). This TDEE value is the number of calories you need to consume to maintain your current weight. To lose weight, you need to consume fewer calories than your TDEE, and to gain weight, you need to consume more.</p>
         </div>
 
         <div class="faq-section" style="margin-top: var(--space-2xl); text-align: left;">
             <h2>Frequently Asked Questions (FAQ)</h2>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>What is the Calorie Calculator?</h3>
-                <p>The Calorie Calculator helps you estimate your daily calorie needs..</p>
+                <h3>What is Basal Metabolic Rate (BMR)?</h3>
+                <p>BMR is the minimum number of calories your body requires to function at rest. It accounts for the energy needed for vital functions like breathing, circulation, and cell production. It does not include calories needed for physical activity.</p>
             </div>
             <div class="faq-item" style="margin-bottom: var(--space-lg);">
-                <h3>How do I use the Calorie Calculator?</h3>
-                <p>Simply enter the required values into the form fields. The calculator will automatically update with the result.</p>
+                <h3>How accurate is this calculator?</h3>
+                <p>This calculator provides a very good estimate based on a scientifically validated formula. However, individual factors like body composition (muscle vs. fat), genetics, and specific health conditions can influence your exact metabolic rate. For personalized advice, it's always best to consult with a healthcare professional or registered dietitian.</p>
             </div>
         </div>
 
@@ -107,17 +108,17 @@
           "@type": "FAQPage",
           "mainEntity": [{
             "@type": "Question",
-            "name": "What is the Calorie Calculator?",
+            "name": "What is Basal Metabolic Rate (BMR)?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The Calorie Calculator helps you estimate your daily calorie needs.."
+              "text": "BMR is the minimum number of calories your body requires to function at rest. It accounts for the energy needed for vital functions like breathing, circulation, and cell production. It does not include calories needed for physical activity."
             }
           }, {
             "@type": "Question",
-            "name": "How do I use the Calorie Calculator?",
+            "name": "How accurate is this calculator?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Simply enter the required values into the form fields. The calculator will automatically update with the result."
+              "text": "This calculator provides a very good estimate based on a scientifically validated formula. However, individual factors like body composition, genetics, and health conditions can influence your exact metabolic rate. For personalized advice, consult with a healthcare professional."
             }
           }]
         }

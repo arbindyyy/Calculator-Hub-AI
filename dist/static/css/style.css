@@ -393,3 +393,33 @@ body {
   font-size: 1rem;
   line-height: 1.5;
 }
+
+/* Amortization Table Styles */
+.amortization-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 8px;
+}
+.amortization-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+.amortization-table-container th, .amortization-table-container td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: right;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+.amortization-table-container th {
+    background-color: var(--bg-secondary);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+.amortization-table-container tbody tr:nth-child(even) {
+    background-color: var(--bg-secondary);
+}
+.amortization-table-container tbody tr:hover {
+    background-color: var(--accent-blue-transparent, rgba(0, 212, 255, 0.1));
+}
